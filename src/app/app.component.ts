@@ -9,9 +9,7 @@ import { FooterComponent } from './components/shared/footer/footer.component';
   imports: [RouterOutlet, NavbarComponent, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'PlayStore';
   title = 'PlayStore';
 }
