@@ -6,7 +6,10 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "serve-api": "npx json-server src/api/api.json",
+    "serve-ang": "ng serve -o",
+    "serve": "concurrently npm:serve-* -c \"cyan,magenta\" -p \"{time} [{name}]\" -t \"HH:mm:ss.SSS\" -k"
   },
   "private": true,
   "dependencies": {
@@ -20,6 +23,7 @@
     "@angular/platform-browser": "^18.2.0",
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
+    "concurrently": "^9.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
