@@ -1,17 +1,8 @@
-export interface GameDetails {
-  id: number;
-  title: string;
-  thumbnail: string;
+import { Game } from './game';
+
+export interface GameDetails extends Game {
   status: string;
-  short_description: string;
   description: string;
-  game_url: string;
-  genre: string;
-  platform: string;
-  publisher: string;
-  developer: string;
-  release_date: string;
-  freetogame_profile_url: string;
   minimum_system_requirements: SystemRequirements;
   screenshots: Screenshot[];
 }
