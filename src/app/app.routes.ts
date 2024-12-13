@@ -9,6 +9,7 @@ import { PlayedListComponent } from './pages/played-list/played-list.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import {authGuard} from './guards/auth.guard';
 
 const globalTitle = ' - MaxClip';
 
@@ -40,6 +41,7 @@ export const routes: Routes = [
   },
   {
     path: 'my-games',
+    // canActivate: [authGuard],
     children: [
       {
         path: 'completed',

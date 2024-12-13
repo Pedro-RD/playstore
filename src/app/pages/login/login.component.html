@@ -1,1 +1,46 @@
-<p>login works!</p>
+<form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+  <label for="email">email</label>
+  <input
+    id="email"
+    type="text"
+    formControlName="email"
+    class="w-full"
+    name="email"
+    placeholder="Type your email"
+  />
+  @if (email.invalid && (email.dirty || email.touched)) {
+    <small>
+    @if (email.errors?.['required']) {
+        <div>Email is required</div>
+    }
+    @if (email.errors?.['email']) {
+      <div>Email should be valid.</div>
+    }
+    </small>
+  }
+
+  <label for="password">password</label>
+  <input
+    id="password"
+    type="password"
+    formControlName="password"
+    class="w-full"
+    name="password"
+    placeholder="Type your password"
+  />
+  @if (password.invalid && (password.dirty || password.touched)) {
+    <small>
+      @if (password.errors?.['required']) {
+        <div>Password is required</div>
+      }
+    </small>
+  }
+  <button
+    [disabled]="loginForm.invalid"
+    type="submit"
+  >SIGN IN</button>
+  <div>
+    Not a member?
+    <a routerLink="/register">Register</a>
+  </div>
+</form>
