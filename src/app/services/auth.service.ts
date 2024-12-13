@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { User } from '../models';
+import { Logger } from '../helpers/logger.helper';
 
 @Injectable({
   providedIn: 'root',
@@ -25,8 +26,13 @@ export class AuthService {
   }
 
   isLogged(): Observable<boolean> {
-    return this.loggedUser
-      .asObservable()
-      .pipe(map((user) => user !== undefined));
+    return this.loggedUser.asObservable().pipe(
+      map((user) => !!user),
+      tap(Logger.log)
+    );
+  }
+
+  logout(): void {
+    this.loggedUser.next(undefined);
   }
 }
