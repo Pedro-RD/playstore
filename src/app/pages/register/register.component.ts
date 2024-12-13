@@ -1,42 +1,90 @@
 import { Component } from '@angular/core';
-import {MatError, MatFormField, MatHint, MatLabel} from '@angular/material/form-field';
-import {MatInput} from '@angular/material/input';
-import {FormControl, ReactiveFormsModule} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators
+} from '@angular/forms';
 import {MatIcon} from '@angular/material/icon';
-import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
-import {MatButton, MatFabButton} from '@angular/material/button';
-
-class MyErrorStateMatcher extends ErrorStateMatcher {
-}
+import {MatIconModule} from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
+import {Router, RouterLink} from '@angular/router';
+import {AuthService} from '../../services/auth.service';
+import {User} from '../../models';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [
-    MatFormField,
-    MatInput,
-    MatLabel,
-    ReactiveFormsModule,
-    MatError,
-    MatHint,
-    MatIcon,
-    MatDatepickerInput,
-    MatDatepickerToggle,
-    MatDatepicker,
-    MatFabButton,
-    MatButton
-  ],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatIcon, MatButtonModule, MatDividerModule, MatIconModule, ReactiveFormsModule, RouterLink],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
-  emailFormControl: FormControl = new FormControl('');
+  registerForm!: FormGroup;
 
-  protected readonly FormControl = FormControl;
-  matcher: ErrorStateMatcher = new MyErrorStateMatcher();
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+  ) {
+    this.initForm();
+  }
 
-  clickEvent($event: MouseEvent) {
+  private  initForm() {
+    this.registerForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+    },
+      { validators: this.passwordMatchValidator }
+    );
+  }
 
+  passwordMatchValidator(form: AbstractControl): ValidationErrors | null {
+    const password = form.get('password');
+    const confirmPassword = form.get('confirmPassword');
+
+    if (!password || !confirmPassword) {
+      return null;
+    }
+    return password.value === confirmPassword.value ? null : { passwordMismatch: true };
+  }
+
+  get name() {
+    return this.registerForm.controls['name'];
+  }
+
+  get email() {
+    return this.registerForm.controls['email'];
+  }
+
+  get password() {
+    return this.registerForm.controls['password'];
+  }
+
+  get confirmPassword() {
+    return this.registerForm.controls['confirmPassword'];
+  }
+
+  submitDetails() {
+    const postData = { ...this.registerForm.value };
+    delete postData.confirmPassword;
+    this.authService.registerUser(postData as User).subscribe(
+      response => {
+        console.log(response);
+        this.router.navigate(['login']);
+      },
+      error => {
+        console.log(error);
+        alert(error.message);
+      }
+    )
   }
 }

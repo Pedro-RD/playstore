@@ -1,12 +1,58 @@
 import { Component } from '@angular/core';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {Router, RouterLink} from '@angular/router';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [
+    ReactiveFormsModule,
+    RouterLink
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  loginForm!: FormGroup;
 
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+  ) {
+    this.initForm();
+  }
+
+  private  initForm() {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+    });
+  }
+
+  get email() {
+    return this.loginForm.controls['email'];
+  }
+
+  get password() {
+    return this.loginForm.controls['password'];
+  }
+
+  loginUser() {
+    const { email, password } = this.loginForm.value;
+    this.authService.getUserByEmail(email as string).subscribe(
+      response => {
+        if(response.length > 0 && response[0].password === password) {
+          sessionStorage.setItem('email', email as string);
+          this.router.navigate(['/home']);
+        } else {
+          alert('Email or password is wrong');
+        }
+      },
+      error => {
+        alert(error);
+      }
+    )
+  }
 }

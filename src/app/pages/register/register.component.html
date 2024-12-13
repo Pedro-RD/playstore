@@ -1,47 +1,90 @@
-<div class="display-flex">
+<form
+  [formGroup]="registerForm"
+  (ngSubmit)="submitDetails()"
+  class="example-form">
   <mat-form-field class="example-full-width">
     <mat-label>Name</mat-label>
-    <input matInput placeholder="Ex. Harry" value="">
+    <input
+      matInput
+      placeholder="username"
+      type="text"
+      formControlName="name"
+      class="w-full"
+      name="name"
+    />
   </mat-form-field>
-  <br>
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <mat-label>Email</mat-label>
-      <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-             placeholder="Ex. pat@example.com">
-      <mat-hint>Errors appear instantly!</mat-hint>
-      @if (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) {
-        <mat-error>Please enter a valid email address</mat-error>
+  @if (name.invalid && (name.dirty || name.touched)) {
+    <small>
+      @if (name.errors?.['required']) {
+        <div>Name is required</div>
       }
-      @if (emailFormControl.hasError('required')) {
-        <mat-error>Email is <strong>required</strong></mat-error>
+    </small>
+  }
+  <mat-form-field class="example-full-width">
+    <mat-label>Email</mat-label>
+    <input
+      matInput
+      placeholder="username@email.com"
+      type="text"
+      formControlName="email"
+      class="w-full"
+      name="email"
+    />
+  </mat-form-field>
+  @if (email.invalid && (email.dirty || email.touched)) {
+    <small>
+      @if (email.errors?.['required']) {
+        <div>Email is required</div>
       }
-    </mat-form-field>
-  </form>
-  <br>
-  <mat-form-field>
-    <mat-label>Enter your password</mat-label>
-    <input matInput [type]="'password'" />
+      @if (email.errors?.['email']) {
+        <div>Email should be valid.</div>
+      }
+    </small>
+  }
+  <mat-form-field class="example-full-width">
+    <mat-label>Password</mat-label>
+    <input
+      matInput
+      placeholder="password"
+      type="password"
+      formControlName="password"
+      class="w-full"
+      name="password"
+    />
   </mat-form-field>
-  <br>
-  <mat-form-field>
-    <mat-label>Repeat your password</mat-label>
-    <input matInput [type]="'password'" />
+  @if (password.invalid && (password.dirty || password.touched)) {
+    <small>
+      @if (password.errors?.['required']) {
+        <div>Password is required</div>
+      }
+    </small>
+  }
+  <mat-form-field class="example-full-width">
+    <mat-label>Password Confirm</mat-label>
+    <input
+      matInput
+      placeholder="confirm your password"
+      type="password"
+      formControlName="confirmPassword"
+      class="w-full"
+      name="confirmPassword"
+    />
   </mat-form-field>
-  <br>
-  <mat-form-field>
-    <mat-label>Choose a date</mat-label>
-    <input matInput [matDatepicker]="picker">
-    <mat-hint>MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-<br>
-  <button mat-raised-button color="primary">Register</button>
-  <div class="example-button-container">
-    <button mat-fab extended>
-      <mat-icon>favorite</mat-icon>
-      Basic
-    </button>
-  </div>
-</div>
+  @if (confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)) {
+    <small>
+      @if (registerForm.errors?.['required']) {
+        <div>Confirm the password</div>
+      }
+    </small>
+    <small>
+      @if (registerForm.errors?.['passwordMismatch'] &&
+      confirmPassword.valid && password.valid) {
+        <div>Password should match</div>
+      }
+    </small>
+  }
+  <button
+    [disabled]="registerForm.invalid"
+    type="submit"
+  >Register</button>
+</form>
