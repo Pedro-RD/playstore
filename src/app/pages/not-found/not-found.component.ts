@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-not-found',
   standalone: true,
-  imports: [],
+  imports: [MatCardModule, MatButtonModule, MatIconModule, RouterLink],
   templateUrl: './not-found.component.html',
-  styleUrl: './not-found.component.scss'
+  styleUrls: ['./not-found.component.scss'],
 })
-export class NotFoundComponent {
-
-}
+export class NotFoundComponent {}
