@@ -1,3 +1,5 @@
-@for (game of games; track game.id) {
+@for (game of (games$ | async); track game.id) {
 <app-card-game [game]="game" />
+} @empty {
+<p>Sem jogos encontrados</p>
 }
