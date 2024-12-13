@@ -5,9 +5,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { NgIf } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -20,10 +19,8 @@ import { NgIf } from '@angular/common';
     FormsModule,
     MatMenuTrigger,
     MatMenu,
-    MatFormField,
-    MatInput,
-    MatLabel,
     NgIf,
+    AsyncPipe,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
@@ -32,12 +29,17 @@ export class NavbarComponent {
   showSearch: boolean = false;
   searchQuery: string = '';
 
+  constructor(private authService: AuthService) {}
+
+  get isLogged() {
+    return this.authService.isLogged();
+  }
+
   toggleSearch() {
     this.showSearch = !this.showSearch;
   }
 
   logout(): void {
-    // TODO
-    // Colocar lógica de logout
+    this.authService.logout();
   }
 }

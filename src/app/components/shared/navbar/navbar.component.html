@@ -14,6 +14,12 @@
   </div>
 
   <div class="actions-container">
+    <button mat-button aria-label="Sort by title">
+      <mat-icon>sort_by_alpha</mat-icon>
+    </button>
+    <button mat-button aria-label="Sort by date">
+      <mat-icon>date_range</mat-icon>
+    </button>
     <button mat-button [matMenuTriggerFor]="gamesMenu" aria-label="Game lists menu" class="menu-button">
       <mat-icon>list</mat-icon>
       Game Lists
@@ -25,21 +31,20 @@
       <button mat-menu-item class="custom-menu-item">Completed</button>
     </mat-menu>
 
-    <button mat-icon-button [matMenuTriggerFor]="profileMenu" aria-label="User profile" class="menu-button">
+    @if (isLogged | async) {
+    <button mat-icon-button aria-label="User profile" class="menu-button" [routerLink]="['/profile']">
       <mat-icon>account_circle</mat-icon>
     </button>
-    <mat-menu #profileMenu="matMenu" class="custom-menu">
-      <button mat-menu-item class="custom-menu-item">View Profile</button>
-      <button mat-menu-item class="custom-menu-item">Settings</button>
-      <button mat-menu-item class="custom-menu-item">Logout</button>
-    </mat-menu>
-
-    <button mat-icon-button aria-label="Settings" class="menu-button">
-      <mat-icon>settings</mat-icon>
-    </button>
-
     <button mat-icon-button (click)="logout()" aria-label="Logout" class="menu-button">
       <mat-icon>exit_to_app</mat-icon>
     </button>
+    } @else {
+    <button mat-button [routerLink]="['/login']" aria-label="Login" class="menu-button">
+      Login
+    </button>
+    <button mat-button [routerLink]="['/register']" aria-label="Register" class="menu-button">
+      Register
+    </button>
+    }
   </div>
 </mat-toolbar>
