@@ -3,11 +3,11 @@ import { environment } from '../../environments/environment';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { User } from '../models';
 import { Logger } from '../helpers/logger.helper';
-import {HttpClient} from '@angular/common/http';
-import {FormGroup} from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private readonly loggedUser = new BehaviorSubject<User | undefined>({
@@ -22,7 +22,7 @@ export class AuthService {
   private readonly API_USERS = environment.apiUrl + 'users';
   private baseUrl = 'http://localhost:3000/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   registerUser(userDetails: User) {
     return this.http.post(`${this.baseUrl}users`, userDetails);
@@ -37,10 +37,7 @@ export class AuthService {
   }
 
   isLogged(): Observable<boolean> {
-    return this.loggedUser.asObservable().pipe(
-      map((user) => !!user),
-      tap(Logger.log)
-    );
+    return this.loggedUser.asObservable().pipe(map((user) => !!user));
   }
 
   logout(): void {
