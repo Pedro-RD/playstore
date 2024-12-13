@@ -1,16 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { mergeMap, Subscription, tap } from 'rxjs';
+import {mergeMap, of, Subscription, tap} from 'rxjs';
 import { GameDetails } from '../../models';
 import { LoadingService } from '../../services/loading.service';
 import { GamesService } from '../../services/games.service';
 import { Logger } from '../../helpers/logger.helper';
-import { JsonPipe } from '@angular/common';
+import {JsonPipe, NgForOf, NgIf} from '@angular/common';
+import {MatCard, MatCardContent, MatCardHeader, MatCardImage, MatCardTitle} from '@angular/material/card';
 
 @Component({
   selector: 'app-game-details',
   standalone: true,
-  imports: [JsonPipe],
+  imports: [JsonPipe, MatCard, MatCardHeader, MatCardContent, MatCardImage, MatCardTitle],
   templateUrl: './game-details.component.html',
   styleUrl: './game-details.component.scss',
 })
@@ -58,4 +59,5 @@ export class GameDetailsComponent implements OnInit, OnDestroy {
   private error = (error: any) => {
     // TODO
   };
+  protected readonly of = of;
 }
