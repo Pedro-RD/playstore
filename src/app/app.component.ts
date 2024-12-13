@@ -5,11 +5,19 @@ import { FooterComponent } from './components/shared/footer/footer.component';
 import { LoadingComponent } from './components/shared/loading/loading.component';
 import { LoadingService } from './services/loading.service';
 import { Subscription } from 'rxjs';
+import { ToastComponent } from './components/toast/toast.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, FooterComponent, LoadingComponent],
+  imports: [
+    RouterOutlet,
+    NavbarComponent,
+    FooterComponent,
+    LoadingComponent,
+    ToastComponent,
+    ToastComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
