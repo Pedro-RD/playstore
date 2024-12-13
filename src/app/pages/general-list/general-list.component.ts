@@ -19,7 +19,7 @@ export class GeneralListComponent implements OnInit, OnDestroy {
     return this.gamesService.games$;
   }
   ngOnInit(): void {
-    this.subscriptions.push(this.gamesService.getGames().subscribe());
+    this.subscriptions.push(this.gamesService.getAllGames().subscribe());
   }
 
   ngOnDestroy(): void {

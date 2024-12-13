@@ -1,23 +1,28 @@
-<div class="card-container">
-  <mat-card class="game-card">
-    <div class="content-wrapper">
-      <img src="https://www.freetogame.com/g/540/thumbnail.jpg" alt="Overwatch 2" class="game-image">
-      <div class="text-content">
-        <mat-card-title>Overwatch 2</mat-card-title>
-        <mat-card-subtitle>Shooter | PC (Windows)</mat-card-subtitle>
-      </div>
+<mat-card class="game-card">
+  <div class="content-wrapper">
+    <img [src]="game.thumbnail" [alt]="game.title" class="game-image">
+    <div class="text-content">
+      <mat-card-title>{{game.title}}</mat-card-title>
+      <mat-card-subtitle>{{game.genre}} | {{game.platform}}</mat-card-subtitle>
     </div>
-    <mat-card-content>
-      <p class="description">
-        A hero-focused first-person team shooter from Blizzard Entertainment.
-      </p>
-      <p><strong>Editora:</strong> Activision Blizzard</p>
-      <p><strong>Desenvolvedora:</strong> Blizzard Entertainment</p>
-      <p><strong>Data de Lançamento:</strong> 2022-10-04</p>
-    </mat-card-content>
-    <mat-card-actions>
-      <a href="https://www.freetogame.com/open/overwatch-2" target="_blank" mat-button>Jogar</a>
-      <a href="https://www.freetogame.com/overwatch-2" target="_blank" mat-button>Mais Info</a>
-    </mat-card-actions>
-  </mat-card>
-</div>
+  </div>
+  <mat-card-content>
+    <p class="description">{{game.short_description}}</p>
+    <p><strong>Publisher: </strong>{{game.publisher}}</p>
+    <p><strong>Developer: </strong>{{game.developer}}</p>
+    <p><strong>Release Date: </strong>{{game.release_date}}</p>
+  </mat-card-content>
+  <mat-card-actions class="actions-wrapper">
+    <div class="links">
+      <a [href]="game.game_url" target="_blank" class="external-link">Oficial Page</a>
+      <a [href]="game.freetogame_profile_url" target="_blank" class="external-link">
+        FreeToGame
+      </a>
+      <a [routerLink]="['game', game.id]" class="external-link">Details</a>
+    </div>
+    <div class="actions">
+      <ng-content />
+    </div>
+    <ng-content />
+  </mat-card-actions>
+</mat-card>
