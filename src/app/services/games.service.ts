@@ -3,6 +3,7 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { Game, GameDetails, UserGame } from '../models';
+import { ToastService } from './toast.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,16 @@ export class GamesService {
   private readonly API_PLAYING =
     environment.apiUrl + 'usersListCurrentlyPlaying';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private toastService: ToastService
+  ) {}
+
+  /* TODO
+    Deve ser possível o utilizador pesquisar por um título (a API permite pesquisa por um atributo; NOTA: A API de testes só permite pesquisar por um nome/valor completo!).
+    Deve ser possível o utilizador filtrar os jogos por plataforma e género (existe um objeto na API que lista todas as plataformas e géneros; a API permite pesquisa por um atributo).
+    Deve ser possível o utilizador ordenar a lista por ordem alfabética dos títulos e data de lançamento (a API permite a ordenação por um atributo).
+  */
 
   private readonly games = new BehaviorSubject<Game[]>([]);
   readonly games$ = this.games.asObservable();
