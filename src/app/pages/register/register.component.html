@@ -1,1 +1,47 @@
-<p>register works!</p>
+<div class="display-flex">
+  <mat-form-field class="example-full-width">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Ex. Harry" value="">
+  </mat-form-field>
+  <br>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+             placeholder="Ex. pat@example.com">
+      <mat-hint>Errors appear instantly!</mat-hint>
+      @if (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) {
+        <mat-error>Please enter a valid email address</mat-error>
+      }
+      @if (emailFormControl.hasError('required')) {
+        <mat-error>Email is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+  </form>
+  <br>
+  <mat-form-field>
+    <mat-label>Enter your password</mat-label>
+    <input matInput [type]="'password'" />
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Repeat your password</mat-label>
+    <input matInput [type]="'password'" />
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Choose a date</mat-label>
+    <input matInput [matDatepicker]="picker">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+<br>
+  <button mat-raised-button color="primary">Register</button>
+  <div class="example-button-container">
+    <button mat-fab extended>
+      <mat-icon>favorite</mat-icon>
+      Basic
+    </button>
+  </div>
+</div>
