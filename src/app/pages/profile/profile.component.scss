@@ -1,0 +1,80 @@
+/* Profile Page Layout */
+.profile-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Profile Card */
+.profile-card {
+  background-color: #474D5E;
+  width: 100%;
+  max-width: 450px;
+  min-height: 550px;
+  padding: 30px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Profile Header */
+.profile-header {
+  margin-bottom: 40px;
+  height: 170px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative; /* Enables absolute positioning for children */
+}
+
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0; /* Remove extra margin */
+  display: block;
+}
+
+/* Change Photo Button */
+.change-photo-btn {
+  background-color: #3f51b5; /* Same as Save/Edit button color */
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  position: absolute; /* Makes the button overlay the avatar */
+  bottom: 0; /* Aligns the button to the bottom of the header */
+  transform: translateY(50%); /* Adjust positioning for a cleaner look */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+
+/* Profile Details */
+mat-card-content {
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.edit-input {
+  width: 100%;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+/* Edit Button */
+mat-card-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
