@@ -22,3 +22,18 @@
   background-color: #f0f0f0; /* Cor de fundo dos itens ao passar o mouse */
   color: #474D5E; /* Cor da letra dos itens ao passar o mouse */
 }
+
+
+//Search
+.mat-icon-button {
+  border-radius: 50%;
+  margin-right: 10px; /* Espaço entre o botão de pesquisa e o campo de entrada */
+}
+
+input[type="text"] {
+  outline: none; /* Remove o contorno ao focar */
+}
+
+input[type="text"]::placeholder {
+  color: #ccc; /* Cor do texto do placeholder para melhor visibilidade */
+}

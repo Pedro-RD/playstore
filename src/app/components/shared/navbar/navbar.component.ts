@@ -7,11 +7,12 @@ import {FormsModule} from '@angular/forms';
 import {MatMenu, MatMenuTrigger} from '@angular/material/menu';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, RouterLink, FormsModule, MatMenuTrigger, MatMenu, MatFormField, MatInput, MatLabel],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, RouterLink, FormsModule, MatMenuTrigger, MatMenu, MatFormField, MatInput, MatLabel, NgIf],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
