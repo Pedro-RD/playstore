@@ -5,12 +5,11 @@ import {
   BehaviorSubject,
   combineLatest,
   map,
-  merge,
   mergeMap,
   Observable,
   tap,
 } from 'rxjs';
-import { Game, GameDetails, UserGame } from '../models';
+import { Game, GameDetails } from '../models';
 import { ToastService } from './toast.service';
 
 @Injectable({

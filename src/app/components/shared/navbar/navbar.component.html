@@ -1,49 +1,45 @@
-<mat-toolbar style="background-color: #474D5E; color: white; width: 100%; display: flex; justify-content: space-between; align-items: center;">
-  <div style="display: flex; align-items: center;">
-    <button mat-icon-button [routerLink]="['/home']" aria-label="Home icon-button">
+<mat-toolbar class="navbar-toolbar">
+  <div class="logo-container">
+    <button mat-icon-button [routerLink]="['/']" aria-label="Home icon-button">
       <img src="logo_nav.png" alt="Logo">
     </button>
-    <span class="app-name" [routerLink]="['/home']" style="margin-left: 10px;">MaxClip</span>
+    <span class="app-name" [routerLink]="['/']">MaxClip</span>
   </div>
 
-  <div style="display: flex; align-items: center; justify-content: center; flex-grow: 1;">
-    <button mat-icon-button (click)="toggleSearch()" aria-label="Toggle search" style="color: #f0f0f0; background-color: #474D5E;">
+  <div class="search-container">
+    <button mat-icon-button (click)="toggleSearch()" aria-label="Toggle search" class="search-button">
       <mat-icon>search</mat-icon>
     </button>
-    <input *ngIf="showSearch" type="text" placeholder="Buscar jogos..." [(ngModel)]="searchQuery"
-           style="width: 50%; padding: 10px 20px; margin-left: 20px; border-radius: 4px; border: none; color: #f0f0f0; background-color: #333840;">
+    <input *ngIf="showSearch" type="text" placeholder="Search games..." [(ngModel)]="searchQuery" class="search-input">
   </div>
 
-  <div style="display: flex; align-items: center;">
-    <button mat-button [matMenuTriggerFor]="gamesMenu" aria-label="Game lists menu" style="color: #f0f0f0; background-color: #474D5E;">
+  <div class="actions-container">
+    <button mat-button [matMenuTriggerFor]="gamesMenu" aria-label="Game lists menu" class="menu-button">
       <mat-icon>list</mat-icon>
-      Listas de Jogos
+      Game Lists
     </button>
     <mat-menu #gamesMenu="matMenu" class="custom-menu">
-      <button mat-menu-item class="custom-menu-item">Jogar mais tarde</button>
-      <button mat-menu-item class="custom-menu-item">A jogar atualmente</button>
-      <button mat-menu-item class="custom-menu-item">Jogado</button>
-      <button mat-menu-item class="custom-menu-item">Concluído</button>
+      <button mat-menu-item class="custom-menu-item">Play Later</button>
+      <button mat-menu-item class="custom-menu-item">Currently Playing</button>
+      <button mat-menu-item class="custom-menu-item">Played</button>
+      <button mat-menu-item class="custom-menu-item">Completed</button>
     </mat-menu>
 
-    <button mat-icon-button [matMenuTriggerFor]="profileMenu" aria-label="User profile" style="color: #f0f0f0; background-color: #474D5E;">
+    <button mat-icon-button [matMenuTriggerFor]="profileMenu" aria-label="User profile" class="menu-button">
       <mat-icon>account_circle</mat-icon>
     </button>
     <mat-menu #profileMenu="matMenu" class="custom-menu">
-      <button mat-menu-item class="custom-menu-item">Ver Perfil</button>
-      <button mat-menu-item class="custom-menu-item">Configurações</button>
+      <button mat-menu-item class="custom-menu-item">View Profile</button>
+      <button mat-menu-item class="custom-menu-item">Settings</button>
       <button mat-menu-item class="custom-menu-item">Logout</button>
     </mat-menu>
 
-    <button mat-icon-button aria-label="Settings">
+    <button mat-icon-button aria-label="Settings" class="menu-button">
       <mat-icon>settings</mat-icon>
     </button>
 
-    <button mat-icon-button (click)="logout()" aria-label="Logout">
+    <button mat-icon-button (click)="logout()" aria-label="Logout" class="menu-button">
       <mat-icon>exit_to_app</mat-icon>
     </button>
   </div>
 </mat-toolbar>
-
-
-
