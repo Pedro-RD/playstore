@@ -4,6 +4,7 @@ import { Game } from './game';
 import { Platform } from './platform';
 import { Genre } from './genre';
 import { GameDetails, Screenshot, SystemRequirements } from './game-details';
+import { Notification } from './notification';
 
 export {
   type User,
@@ -15,4 +16,5 @@ export {
   type Screenshot,
   type SystemRequirements,
   type GameRecord,
+  type Notification,
 };
