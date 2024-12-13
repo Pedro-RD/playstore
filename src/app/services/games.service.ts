@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
-import { Game, UserGame } from '../models';
+import { Game, GameDetails, UserGame } from '../models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GamesService {
   private readonly API_LIST = environment.apiUrl + 'gamesList';
-  private readonly API_DETAIL = environment.apiUrl + 'gamesDetails';
+  private readonly API_DETAIL = environment.apiUrl + 'gameDetails';
 
   // Private Lists
   private readonly API_PLAYED = environment.apiUrl + 'usersListPlayed';
@@ -32,6 +32,6 @@ export class GamesService {
   }
 
   getGameDetails(id: number) {
-    return this.httpClient.get<Game>(`${this.API_DETAIL}/${id}`);
+    return this.httpClient.get<GameDetails>(`${this.API_DETAIL}/${id}`);
   }
 }
