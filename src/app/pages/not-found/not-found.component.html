@@ -1,15 +1,11 @@
 <div class="error-container">
   <mat-card class="error-card">
     <mat-card-content>
-        <div class="error-content">
-          <img
-          src="donkey-kong-dk-rap.gif"
-          alt="Donkey Kong"
-          class="character"
-        />
+      <div class="error-content">
+        <img src="donkey-kong-dk-rap.gif" alt="Donkey Kong" class="character" />
         <h1 class="error-code">404</h1>
-        <p>Oops! Parece que a página que você está procurando não existe.</p>
-        <a mat-button routerLink="/" class="goBack">Voltar para a Página Inicial</a>
+        <p>Opps! You gamed too hard and got lost!</p>
+        <a class="goBack" [routerLink]="['/']">Go Back to our homepage</a>
       </div>
     </mat-card-content>
   </mat-card>

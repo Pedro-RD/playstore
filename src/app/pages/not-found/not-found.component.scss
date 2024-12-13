@@ -1,25 +1,9 @@
-/* Aplique a fonte Press Start 2P globalmente na página 404 */
-* {
-  font-family: 'Press Start 2P', cursive;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body, html {
-  height: 100%;
-  margin: 0;
-}
-
 .error-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   min-height: 100%;
-  background-color: #474D5E;
-  color: #474D5E;
-  font-family: 'Press Start 2P', cursive; /* Usando a fonte */
   padding: 20px;
   text-align: center;
 }
@@ -28,7 +12,7 @@ body, html {
   width: 100%;
   max-width: 600px;
   text-align: center;
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -41,13 +25,13 @@ body, html {
 
 .error-icon {
   font-size: 80px;
-  color: #FF5722;
+  color: #ff5722;
 }
 
 a.goBack {
   display: inline-block;
   margin-top: 20px;
-  color: #FF5722;
+  color: #ff5722;
   text-decoration: none;
   font-size: 16px;
   text-transform: uppercase;
@@ -56,35 +40,9 @@ a.goBack {
 }
 
 a.goBack:hover {
-  color: #FF9800;
+  color: #ff9800;
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
-  .error-card {
-    padding: 15px;
-    max-width: 90%;
-  }
-
-  .error-icon {
-    font-size: 60px;
-  }
-
-  a.goBack {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) {
-  .error-card {
-    padding: 10px;
-  }
-
-  .error-icon {
-    font-size: 50px;
-  }
-
-  a.goBack {
-    font-size: 12px;
-  }
+img {
+  width: 100%;
 }
