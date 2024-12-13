@@ -1,1 +1,8 @@
-<p>profile works!</p>
+@if(profile | async) {
+<p>
+    {{ (profile | async) | json }}
+    {{ (profile | async)?.avatar }}
+
+    <input [disabled]="!edit" />
+</p>
+}
