@@ -1,7 +1,15 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, map, Observable, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest,
+  map,
+  merge,
+  mergeMap,
+  Observable,
+  tap,
+} from 'rxjs';
 import { Game, GameDetails, UserGame } from '../models';
 import { ToastService } from './toast.service';
 
@@ -9,6 +17,12 @@ import { ToastService } from './toast.service';
   providedIn: 'root',
 })
 export class GamesService {
+  // Filters and Sorts
+  private readonly filterTitle = new BehaviorSubject<string>('');
+  private readonly filterPlatform = new BehaviorSubject<string>('');
+  private readonly filterGenre = new BehaviorSubject<string>('');
+  private readonly sort = new BehaviorSubject<string>('');
+
   private readonly API_LIST = environment.apiUrl + 'gamesList';
   private readonly API_DETAIL = environment.apiUrl + 'gameDetails';
 
@@ -34,7 +48,8 @@ export class GamesService {
   readonly games$ = this.games.asObservable();
 
   getAllGames() {
-    return this.httpClient.get<Game[]>(this.API_LIST).pipe(
+    return this.createUrl().pipe(
+      mergeMap((url) => this.httpClient.get<Game[]>(url)),
       tap((games) => {
         this.games.next(games);
       })
@@ -43,5 +58,59 @@ export class GamesService {
 
   getGameDetails(id: number) {
     return this.httpClient.get<GameDetails>(`${this.API_DETAIL}/${id}`);
+  }
+
+  // Filters and Sorts Functions
+  resetFilters() {
+    this.filterTitle.next('');
+    this.filterPlatform.next('');
+    this.filterGenre.next('');
+    this.sort.next('');
+  }
+
+  setFilterTitle(title: string) {
+    this.filterTitle.next(title);
+  }
+
+  setFilterPlatform(platform: string) {
+    this.filterPlatform.next(platform);
+  }
+
+  setFilterGenre(genre: string) {
+    this.filterGenre.next(genre);
+  }
+
+  setSort(sort: string) {
+    this.sort.next(sort);
+  }
+
+  private createUrl(): Observable<string> {
+    return combineLatest([
+      this.filterTitle,
+      this.filterPlatform,
+      this.filterGenre,
+      this.sort,
+    ]).pipe(
+      map(([title, platform, genre, sort]) => {
+        let url = `${this.API_LIST}?`;
+
+        if (title) {
+          url += `title=${title}&`;
+        }
+
+        if (platform) {
+          url += `platform=${platform}&`;
+        }
+
+        if (genre) {
+          url += `genre=${genre}&`;
+        }
+
+        if (sort) {
+          url += `_sort=${sort}&`;
+        }
+        return url;
+      })
+    );
   }
 }
