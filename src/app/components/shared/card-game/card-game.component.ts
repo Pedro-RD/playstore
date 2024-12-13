@@ -1,7 +1,16 @@
 import { Component, Input } from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import { Game } from '../../../models';
-import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
+import {
+  MatCard,
+  MatCardContent,
+  MatCardLgImage,
+  MatCardTitle,
+  MatCardTitleGroup,
+  MatCardSubtitle, MatCardActions,
+
+} from '@angular/material/card';
+import {MatAnchor} from '@angular/material/button';
 
 @Component({
   selector: 'app-card-game',
@@ -9,7 +18,12 @@ import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
   imports: [
     MatCardContent,
     MatCard,
-    MatCardTitle
+    MatCardTitle,
+    MatCardTitleGroup,
+    MatCardLgImage,
+    MatCardSubtitle,
+    MatCardActions,
+    MatAnchor
   ],
   templateUrl: './card-game.component.html',
   styleUrl: './card-game.component.scss',
@@ -17,4 +31,5 @@ import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
 })
 export class CardGameComponent {
   @Input({ required: true }) game!: Game;
+
 }
