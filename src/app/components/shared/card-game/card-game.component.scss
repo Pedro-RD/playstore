@@ -1,0 +1,72 @@
+/* Centraliza o cartão no meio da página */
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 16px; /* Adiciona espaço para evitar cortes em telas pequenas */
+}
+
+/* Estilo do cartão */
+.game-card {
+  max-width: 600px; /* Ajusta o tamanho máximo do cartão */
+  margin: 16px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  padding: 0; /* Remove padding padrão do mat-card */
+  overflow: hidden; /* Garante que o conteúdo não ultrapasse os limites do cartão */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para um visual moderno */
+}
+
+/* Wrapper para a imagem e texto */
+.content-wrapper {
+  display: flex;
+  width: 100%;
+}
+
+/* Estilo da imagem */
+.game-image {
+  width: 150px; /* Define a largura fixa da imagem */
+  height: auto; /* A altura será ajustada automaticamente */
+  object-fit: cover;
+}
+
+/* Estilo do texto */
+.text-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex: 1; /* O texto ocupa o restante do espaço */
+}
+
+.text-content mat-card-title {
+  margin: 0;
+  font-size: 1.5rem; /* Ajusta o tamanho do título */
+}
+
+.text-content mat-card-subtitle {
+  margin-top: 8px;
+  font-size: 1rem; /* Ajusta o tamanho do subtítulo */
+  color: gray;
+}
+
+/* Estilo do conteúdo */
+mat-card-content {
+  padding: 16px;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+/* Botões de ações */
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px;
+}
+
+mat-card-actions a {
+  text-decoration: none;
+}
