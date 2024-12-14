@@ -100,7 +100,7 @@ export class FormUserComponent implements OnInit {
                 name: this.formGroup.value.name!,
                 email: this.formGroup.value.email!,
                 password: this.formGroup.value.password!,
-                avatar: this.formGroup.value.avatar || undefined,
+                avatar: this.formGroup.value.avatar || null,
             });
         }
         this.formGroup.markAllAsTouched();

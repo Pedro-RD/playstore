@@ -1,9 +1,13 @@
 import { Component, Input } from '@angular/core';
+import {NgIf, NgOptimizedImage} from '@angular/common';
 
 @Component({
     selector: 'app-profile-image',
     standalone: true,
-    imports: [],
+    imports: [
+        NgIf,
+        NgOptimizedImage
+    ],
     templateUrl: './profile-image.component.html',
     styleUrl: './profile-image.component.scss',
 })

@@ -1,8 +1,8 @@
-<div class="is-flex is-justify-content-center is-align-items-center">
-    @if (image) {
-    <img [src]="image" alt="Profile Image" />
-    } @else {
-    {{firstLetter}}
-    }
-
+<div class="is-flex is-justify-content-center is-align-items-center profile-image-container">
+    <ng-container *ngIf="image; else noImage">
+        <img [src]="image" alt="Profile Image" />
+    </ng-container>
+    <ng-template #noImage>
+        <div class="profile-initial">{{ firstLetter }}</div>
+    </ng-template>
 </div>
