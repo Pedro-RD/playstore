@@ -1,27 +1,28 @@
 <app-form [group]="formGroup" (submit)="onSubmit()" [title]="title">
+    <div class="input-container">
+        <ng-container *ngIf="disabled && initialData">
+            <app-profile-image [image]="initialData.avatar" [name]="initialData.name" />
+        </ng-container>
 
-    @if (disabled && initialData) {
-    <app-profile-image [image]="initialData.avatar" [name]="initialData.name" />
-    }
+        <app-input label="Name" type="text" [control]="formGroup.controls.name" [icon]="faUser" />
+        <app-input label="Email" type="email" [control]="formGroup.controls.email" [icon]="faEnvelope" />
 
-    <app-input label="Name" type="text" [control]="formGroup.controls.name" [icon]="faUser" />
-    <app-input label="Email" type="email" [control]="formGroup.controls.email" [icon]="faEnvelope" />
+        <ng-container *ngIf="!disabled">
+            <app-input label="Password" type="password" [control]="formGroup.controls.password" [icon]="faLock" />
+            <app-input label="Confirm Password" type="password" [control]="formGroup.controls.confirmPassword" [icon]="faLock" />
+        </ng-container>
 
-    @if(!disabled){
-    <app-input label="Password" type="password" [control]="formGroup.controls.password" [icon]="faLock" />
-    <app-input label="Confirm Password" type="password" [control]="formGroup.controls.confirmPassword"
-        [icon]="faLock" />
-    }
-    <app-input label="Avatar URL" type="url" [control]="formGroup.controls.avatar" [icon]="faImage" />
+        <app-input label="Avatar URL" type="url" [control]="formGroup.controls.avatar" [icon]="faImage" />
 
-    @if (disabled) {
-    <p class="is-flex is-justify-content-center" formFooter>
-        <button class="button is-warning" [routerLink]="['/profile', 'edit']">
-            Edit&nbsp;&nbsp;
-            <span class="icon is-small">
-                <fa-icon [icon]="faPen" />
-            </span>
-        </button>
-    </p>
-    }
+        <ng-container *ngIf="disabled">
+            <p class="is-flex is-justify-content-center" formFooter>
+                <button class="button is-warning" [routerLink]="['/profile', 'edit']">
+                    Edit&nbsp;&nbsp;
+                    <span class="icon is-small">
+                        <fa-icon [icon]="faPen" />
+                    </span>
+                </button>
+            </p>
+        </ng-container>
+    </div>
 </app-form>

@@ -18,6 +18,7 @@ import { User } from '../../models';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule } from '@angular/router';
 import { ProfileImageComponent } from '../profile-image/profile-image.component';
+import {NgIf} from '@angular/common';
 
 @Component({
     selector: 'app-form-user',
@@ -29,6 +30,7 @@ import { ProfileImageComponent } from '../profile-image/profile-image.component'
         FontAwesomeModule,
         RouterModule,
         ProfileImageComponent,
+        NgIf,
     ],
     templateUrl: './form-user.component.html',
     styleUrl: './form-user.component.scss',
