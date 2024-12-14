@@ -1,4 +1,11 @@
+<!--<app-form [group]="formGroup" (submit)="login()" title="Login">-->
+<!--    <app-input label="Email" type="email" [control]="formGroup.controls.email" [icon]="faEnvelope" />-->
+<!--    <app-input label="Password" type="password" [control]="formGroup.controls.password" [icon]="faLock" />-->
+<!--</app-form>-->
+
 <app-form [group]="formGroup" (submit)="login()" title="Login">
-    <app-input label="Email" type="email" [control]="formGroup.controls.email" [icon]="faEnvelope" />
-    <app-input label="Password" type="password" [control]="formGroup.controls.password" [icon]="faLock" />
+    <div class="input-container">
+        <app-input label="Email" type="email" [control]="formGroup.controls.email" [icon]="faEnvelope" />
+        <app-input label="Password" type="password" [control]="formGroup.controls.password" [icon]="faLock" />
+    </div>
 </app-form>
