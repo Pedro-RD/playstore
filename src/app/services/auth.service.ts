@@ -32,6 +32,20 @@ export class AuthService {
     return this.http.get<User[]>(`${this.baseUrl}users?email=${email}`);
   }
 
+  login(email: string, pw: string): Observable<User> {
+    return this.http.get<User[]>(`${this.baseUrl}users?email=${email}&&password=${pw}`)
+      .pipe(
+        map((users) => users[0] || undefined),
+        tap((user) => {
+          if (user) {
+            this.loggedUser.next(user);
+          } else {
+            console.warn('Invalid login');
+          }
+        })
+      );
+  }
+
   profile(): Observable<User | undefined> {
     return this.loggedUser.asObservable();
   }
