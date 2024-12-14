@@ -9,6 +9,7 @@ import {MatInput} from '@angular/material/input';
 import {MatIcon} from '@angular/material/icon';
 import {Logger} from '../../helpers/logger.helper';
 import {Router} from '@angular/router';
+import {User} from '../../models';
 
 
 @Component({
@@ -97,13 +98,27 @@ export class ProfileComponent implements OnInit{
   }
 
   saveProfile(): void {
+    this.profileForm.enable(); // Enable all controls for validation
+
     if (this.profileForm.valid) {
-      Logger.log('Profile Saved', this.profileForm.value);
-      this.originalProfile = { ...this.profileForm.value }; // Update original profile data
+      const updatedProfile: User = this.profileForm.value as User;
+
+      this.authService.updateProfile(updatedProfile).subscribe({
+        next: (user) => {
+          this.originalProfile = { ...user }; // Update original profile data
+          this.profileForm.disable(); // Disable the form after saving
+          this.edit = false; // Exit edit mode
+          Logger.log('Profile updated successfully:', user);
+        },
+        error: (error) => {
+          Logger.error('Error updating profile:', error);
+        },
+      });
     } else {
-      Logger.error('Form is invalid');
+      Logger.error('Form is invalid', this.profileForm.errors);
     }
   }
+
 
   cancelEdit(): void {
     this.profileForm.patchValue(this.originalProfile); // Reset to original values

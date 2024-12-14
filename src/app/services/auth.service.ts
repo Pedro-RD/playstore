@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { BehaviorSubject, map, mergeMap, Observable, tap } from 'rxjs';
+import {BehaviorSubject, catchError, map, mergeMap, Observable, tap} from 'rxjs';
 import { User } from '../models';
 import { Logger } from '../helpers/logger.helper';
 import { HttpClient } from '@angular/common/http';
@@ -62,4 +62,36 @@ export class AuthService {
   logout(): void {
     this.loggedUser.next(undefined);
   }
+
+  updateProfile(updatedProfile: User): Observable<User> {
+    const currentUser = this.loggedUser.getValue();
+
+    if (!currentUser) {
+      throw new Error('No logged-in user found. Update cannot proceed.');
+    }
+
+    // Ensure the `id` exists in the updated profile
+    if (!updatedProfile.id) {
+      updatedProfile.id = currentUser.id; // Fallback to the current user's ID
+    }
+
+    return this.http
+      .patch<User>(`${this.API_USERS}/${currentUser.id}`, updatedProfile)
+      .pipe(
+        tap((user) => {
+          // Update the BehaviorSubject with the latest data
+          this.loggedUser.next(user);
+          Logger.log('Profile updated successfully:', user);
+        }),
+        map((user) => {
+          Logger.log('Returning updated user from server:', user);
+          return user; // Return the updated user
+        }),
+        catchError((error) => {
+          Logger.error('Error updating profile:', error);
+          throw error; // Re-throw error for further handling
+        })
+      );
+  }
+
 }
