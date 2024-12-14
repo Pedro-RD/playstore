@@ -9,6 +9,7 @@ import { PlayedListComponent } from './pages/played-list/played-list.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import {authGuard} from './guards/auth.guard';
 
 const globalTitle = ' - MaxClip';
 
@@ -27,6 +28,7 @@ export const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
     title: 'Profile' + globalTitle,
+    canActivate: [authGuard],
   },
   {
     path: '',
@@ -37,9 +39,12 @@ export const routes: Routes = [
     path: 'game/:id',
     component: GameDetailsComponent,
     title: 'Game Details' + globalTitle,
+    canActivate: [authGuard],
+
   },
   {
     path: 'my-games',
+    canActivate: [authGuard],
     children: [
       {
         path: 'completed',

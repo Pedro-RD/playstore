@@ -42,12 +42,11 @@ export class LoginComponent {
   loginUser() {
     const { email, password } = this.loginForm.value;
     this.authService.login(email as string, password as string).subscribe(
-      response => {
-        if(response.password === password) {
-          sessionStorage.setItem('email', email as string);
+      (success) => {
+        if (success) {
           this.router.navigate(['/']);
         } else {
-          alert('Email or password is wrong');
+          alert('Email or password wrong');
         }
       },
       error => {
