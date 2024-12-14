@@ -41,11 +41,11 @@ export class LoginComponent {
 
   loginUser() {
     const { email, password } = this.loginForm.value;
-    this.authService.getUserByEmail(email as string).subscribe(
+    this.authService.login(email as string, password as string).subscribe(
       response => {
-        if(response.length > 0 && response[0].password === password) {
+        if(response.password === password) {
           sessionStorage.setItem('email', email as string);
-          this.router.navigate(['/home']);
+          this.router.navigate(['/']);
         } else {
           alert('Email or password is wrong');
         }
