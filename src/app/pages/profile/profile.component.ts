@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import {AsyncPipe, JsonPipe, NgOptimizedImage} from '@angular/common';
+import {AsyncPipe, JsonPipe} from '@angular/common';
 import {MatCard, MatCardActions, MatCardContent} from '@angular/material/card';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
@@ -15,6 +15,7 @@ import {Router} from '@angular/router';
   selector: 'app-profile',
   standalone: true,
   imports: [
+    JsonPipe,
     AsyncPipe,
     MatCardContent,
     MatCard,
@@ -34,8 +35,8 @@ import {Router} from '@angular/router';
 })
 export class ProfileComponent implements OnInit{
   edit = false;
-  emailError: string | null = null;
   updatedAvatar: string | null = null;
+  originalProfile: any = null;
 
 
   constructor(private authService: AuthService, private router: Router)  { }
@@ -60,27 +61,20 @@ export class ProfileComponent implements OnInit{
     ])
   });
 
-  
-  clearInput(controlName: string): void {
-    const control = this.profileForm.get(controlName);
-    if (control) {
-      control.setValue('');
-      control.markAsTouched();
-    }
-  }
 
   ngOnInit() {
     this.loadProfile();
   }
 
   loadProfile(): void {
-    this.authService.profile().subscribe(profile => {
+    this.authService.profile().subscribe((profile) => {
       if (profile) {
+        this.originalProfile = { ...profile }; // Save original profile data
         this.profileForm.patchValue({
           username: profile.name,
           email: profile.email,
           avatar: profile.avatar,
-          password: profile.password
+          password: profile.password,
         });
       }
     });
@@ -92,18 +86,30 @@ export class ProfileComponent implements OnInit{
 
   toggleEdit(): void {
     this.edit = !this.edit;
-    Logger.log('Edit Mode', this.edit);
-    if (!this.edit) {
-      this.saveProfile();
+
+    if (this.edit) {
+      this.originalProfile = { ...this.profileForm.value }; // Save current values before editing
+      this.profileForm.enable(); // Enable all form controls
+    } else {
+      this.saveProfile(); // Save profile when exiting edit mode
+      this.profileForm.disable(); // Disable all form controls
     }
   }
 
   saveProfile(): void {
-    if(this.profileForm.valid) {
+    if (this.profileForm.valid) {
       Logger.log('Profile Saved', this.profileForm.value);
+      this.originalProfile = { ...this.profileForm.value }; // Update original profile data
     } else {
-      Logger.error('Form is invalid')
+      Logger.error('Form is invalid');
     }
+  }
+
+  cancelEdit(): void {
+    this.profileForm.patchValue(this.originalProfile); // Reset to original values
+    this.profileForm.disable(); // Disable the form controls
+    this.edit = false; // Exit edit mode
+    Logger.log('Edit cancelled');
   }
 
   onPhotoChange(event: Event): void {
@@ -118,7 +124,9 @@ export class ProfileComponent implements OnInit{
     }
   }
 
-  onSubmit(): void {
-    Logger.log('Form Submitted', this.profileForm.value);
+  clearInput(controlName: string): void {
+    if (this.edit) {
+      this.profileForm.get(controlName)?.setValue('');
+    }
   }
 }

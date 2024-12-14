@@ -43,7 +43,7 @@
               placeholder="Edit your username"
             />
             @if (edit) {
-              <mat-icon matSuffix>highlight_off</mat-icon>
+              <mat-icon matSuffix (click)="clearInput('username')" class="clear-icon">highlight_off</mat-icon>
             }
             @if (profileForm.get('username')?.hasError('required')) {
               <mat-error>Username is required.</mat-error>
@@ -67,7 +67,7 @@
               placeholder="Edit your email"
             />
             @if (edit) {
-              <mat-icon matSuffix>highlight_off</mat-icon>
+              <mat-icon matSuffix (click)="clearInput('email')" class="clear-icon">highlight_off</mat-icon>
             }
             @if (profileForm.get('email')?.hasError('required')) {
               <mat-error>Email is required.</mat-error>
@@ -88,7 +88,7 @@
               placeholder="Edit your password"
             />
             @if (edit) {
-              <mat-icon matSuffix>highlight_off</mat-icon>
+              <mat-icon matSuffix (click)="clearInput('password')" class="clear-icon">highlight_off</mat-icon>
             }
             @if (profileForm.get('password')?.hasError('required')) {
               <mat-error>Password is required.</mat-error>
@@ -112,6 +112,16 @@
           >
             {{ edit ? 'Save' : 'Edit' }}
           </button>
+          @if (edit) {
+            <button
+              mat-raised-button
+              color="warn"
+              type="button"
+              (click)="cancelEdit()"
+            >
+              Cancel
+            </button>
+          }
         </mat-card-actions>
       </mat-card>
     </form>

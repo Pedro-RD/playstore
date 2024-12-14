@@ -68,9 +68,10 @@ mat-card-content {
 
 /* Edit Button */
 mat-card-actions {
-  margin-top: 20px;
+  margin-top: 50px;
   display: flex;
   justify-content: center;
+  gap: 15px; /* Add gap between buttons */
 }
 
 /* Responsive Design */
@@ -100,5 +101,16 @@ mat-card-actions {
 
   mat-card-actions {
     margin-top: 30px;
+  }
+
+  /* Clear Icon */
+  .clear-icon {
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.54); /* Default Material Design color */
+    transition: color 0.3s ease;
+  }
+
+  .clear-icon:hover {
+    color: #f44336; /* Highlight color on hover */
   }
 }
