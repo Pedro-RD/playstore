@@ -1,90 +1,58 @@
-<form
-  [formGroup]="registerForm"
-  (ngSubmit)="submitDetails()"
-  class="example-form">
-  <mat-form-field class="example-full-width">
-    <mat-label>Name</mat-label>
-    <input
-      matInput
-      placeholder="username"
-      type="text"
-      formControlName="name"
-      class="w-full"
-      name="name"
-    />
-  </mat-form-field>
-  @if (name.invalid && (name.dirty || name.touched)) {
-    <small>
-      @if (name.errors?.['required']) {
-        <div>Name is required</div>
-      }
-    </small>
-  }
-  <mat-form-field class="example-full-width">
-    <mat-label>Email</mat-label>
-    <input
-      matInput
-      placeholder="username@email.com"
-      type="text"
-      formControlName="email"
-      class="w-full"
-      name="email"
-    />
-  </mat-form-field>
-  @if (email.invalid && (email.dirty || email.touched)) {
-    <small>
-      @if (email.errors?.['required']) {
-        <div>Email is required</div>
-      }
-      @if (email.errors?.['email']) {
-        <div>Email should be valid.</div>
-      }
-    </small>
-  }
-  <mat-form-field class="example-full-width">
-    <mat-label>Password</mat-label>
-    <input
-      matInput
-      placeholder="password"
-      type="password"
-      formControlName="password"
-      class="w-full"
-      name="password"
-    />
-  </mat-form-field>
-  @if (password.invalid && (password.dirty || password.touched)) {
-    <small>
-      @if (password.errors?.['required']) {
-        <div>Password is required</div>
-      }
-    </small>
-  }
-  <mat-form-field class="example-full-width">
-    <mat-label>Password Confirm</mat-label>
-    <input
-      matInput
-      placeholder="confirm your password"
-      type="password"
-      formControlName="confirmPassword"
-      class="w-full"
-      name="confirmPassword"
-    />
-  </mat-form-field>
-  @if (confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)) {
-    <small>
-      @if (registerForm.errors?.['required']) {
-        <div>Confirm the password</div>
-      }
-    </small>
-    <small>
-      @if (registerForm.errors?.['passwordMismatch'] &&
-      confirmPassword.valid && password.valid) {
-        <div>Password should match</div>
-      }
-    </small>
-  }
-  <button
-    [disabled]="registerForm.invalid"
-    type="submit"
-  >Register</button>
-</form>
+<div class="centered-container">
+  <!-- Profile Avatar -->
+  <div class="avatar-container">
+    <div class="image-container" *ngIf="file; else placeholder" [ngClass]="{'box-shadow-avatar': !!file}"
+      [ngStyle]="{backgroundImage: 'url(' + file + ')'}">
+    </div>
+    <ng-template #placeholder>
+      <div class="image-container avatar-placeholder">
+      </div>
+    </ng-template>
+    <label for="avatar-input-file">
+      <div class="icon-wrapper">
+        <input type="file" id="avatar-input-file" accept="image/*" (change)="onFileChange($event)" />
+        <mat-icon class="icon" fontIcon="edit"></mat-icon>
+      </div>
+    </label>
+  </div>
+  <br>
+  <div class="form-container">
+    <!-- Name -->
+    <mat-form-field appearance="fill" class="edit-input">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Ex. Harry" value="">
+      <mat-icon matSuffix>highlight_off</mat-icon>
+    </mat-form-field>
+    <br>
+    <!-- Email -->
+    <mat-form-field appearance="fill" class="edit-input">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+        placeholder="Ex. pat@example.com">
+      <mat-hint>Errors appear instantly!</mat-hint>
+      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">Please enter a
+        valid email address</mat-error>
+      <mat-error *ngIf="emailFormControl.hasError('required')">Email is <strong>required</strong></mat-error>
+      <mat-icon matSuffix>highlight_off</mat-icon>
+    </mat-form-field>
+    <br>
+    <!-- Password -->
+    <mat-form-field appearance="fill" class="edit-input">
+      <mat-label>Enter your password</mat-label>
+      <input matInput [type]="'password'" />
+      <mat-icon matSuffix>highlight_off</mat-icon>
+    </mat-form-field>
+    <br>
+    <!-- Repeat Password -->
+    <mat-form-field appearance="fill" class="edit-input">
+      <mat-label>Repeat your password</mat-label>
+      <input matInput [type]="'password'" />
+      <mat-icon matSuffix>highlight_off</mat-icon>
+    </mat-form-field>
+    <br>
+    <!-- Register Button -->
+    <button mat-raised-button>Register
+      <mat-icon>videogame_asset</mat-icon>
+    </button>
+  </div>
+</div>

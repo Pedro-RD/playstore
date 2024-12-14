@@ -1,90 +1,80 @@
 import { Component } from '@angular/core';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
 import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  ValidationErrors,
-  Validators
-} from '@angular/forms';
-import {MatIcon} from '@angular/material/icon';
-import {MatIconModule} from '@angular/material/icon';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatButtonModule} from '@angular/material/button';
-import {Router, RouterLink} from '@angular/router';
-import {AuthService} from '../../services/auth.service';
-import {User} from '../../models';
+  MatError,
+  MatFormField,
+  MatHint,
+  MatLabel,
+  MatSuffix,
+} from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { MatIcon } from '@angular/material/icon';
+import {
+  MatDatepicker,
+  MatDatepickerInput,
+  MatDatepickerToggle,
+} from '@angular/material/datepicker';
+import { MatButton, MatFabButton } from '@angular/material/button';
+import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+  NgOptimizedImage,
+  NgStyle,
+} from '@angular/common';
+
+class MyErrorStateMatcher extends ErrorStateMatcher {}
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatIcon, MatButtonModule, MatDividerModule, MatIconModule, ReactiveFormsModule, RouterLink],
+  imports: [
+    MatFormField,
+    MatInput,
+    MatLabel,
+    ReactiveFormsModule,
+    MatError,
+    MatHint,
+    MatIcon,
+    MatDatepickerInput,
+    MatDatepickerToggle,
+    MatDatepicker,
+    MatFabButton,
+    MatButton,
+    AsyncPipe,
+    NgOptimizedImage,
+    NgIf,
+    NgStyle,
+    NgClass,
+    MatSuffix,
+  ],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
-  registerForm!: FormGroup;
+  emailFormControl: FormControl = new FormControl('');
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router,
-  ) {
-    this.initForm();
-  }
+  protected readonly FormControl = FormControl;
+  matcher: ErrorStateMatcher = new MyErrorStateMatcher();
+  profile: any = {};
+  file: string = '';
 
-  private  initForm() {
-    this.registerForm = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
-    },
-      { validators: this.passwordMatchValidator }
-    );
-  }
+  onFileChange(event: any) {
+    const files = event.target.files as FileList;
 
-  passwordMatchValidator(form: AbstractControl): ValidationErrors | null {
-    const password = form.get('password');
-    const confirmPassword = form.get('confirmPassword');
-
-    if (!password || !confirmPassword) {
-      return null;
+    if (files.length > 0) {
+      const _file = URL.createObjectURL(files[0]);
+      this.file = _file;
+      this.resetInput();
     }
-    return password.value === confirmPassword.value ? null : { passwordMismatch: true };
   }
-
-  get name() {
-    return this.registerForm.controls['name'];
-  }
-
-  get email() {
-    return this.registerForm.controls['email'];
-  }
-
-  get password() {
-    return this.registerForm.controls['password'];
-  }
-
-  get confirmPassword() {
-    return this.registerForm.controls['confirmPassword'];
-  }
-
-  submitDetails() {
-    const postData = { ...this.registerForm.value };
-    delete postData.confirmPassword;
-    this.authService.registerUser(postData as User).subscribe(
-      response => {
-        console.log(response);
-        this.router.navigate(['login']);
-      },
-      error => {
-        console.log(error);
-        alert(error.message);
-      }
-    )
+  resetInput() {
+    const input = document.getElementById(
+      'avatar-input-file'
+    ) as HTMLInputElement;
+    if (input) {
+      input.value = '';
+    }
   }
 }
