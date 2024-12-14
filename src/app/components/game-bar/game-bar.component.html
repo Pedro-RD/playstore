@@ -1,9 +1,14 @@
-<div class="is-flex w-full is-justify-content-space-between">
-    <app-search-box class="is-flex-grow-2 " />
-    <div class="is-flex is-align-items-center">
-        <app-sort-title-button />
-        <app-sort-date-button />
-        <app-genres-dropdown class="navbar-item button has-dropdown is-hoverable" />
+<div class="is-flex w-full is-align-items-center is-justify-content-space-between is-flex-wrap-wrap">
+    <!-- Search box -->
+    <app-search-box
+        class="is-flex-grow-2 mt-2 ml-2-mobile w-full-mobile is-align-self-center-mobile search-box-desktop"
+    />
+
+    <!-- Buttons and dropdowns -->
+    <div class="is-flex is-align-items-center mt-2 ml-2">
+        <app-sort-title-button class="mr-2 " />
+        <app-sort-date-button class="mr-2" />
+        <app-genres-dropdown class="navbar-item button has-dropdown is-hoverable mr-2" />
         <app-platform-dropdown class="navbar-item button has-dropdown is-hoverable" />
     </div>
 </div>

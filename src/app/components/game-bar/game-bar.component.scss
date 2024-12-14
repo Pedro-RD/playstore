@@ -1,0 +1,16 @@
+@media screen and (max-width: 768px) {
+    .ml-2-mobile {
+        margin-left: 0.5rem; /* Adjust the margin-left for mobile */
+        margin-right: 0.5rem;
+    }
+}
+
+/* Search box styling for desktop */
+@media screen and (min-width: 1024px) {
+    .search-box-desktop {
+        max-width: unset; /* Allow full width on desktop */
+        flex-grow: 1; /* Enable it to grow proportionally */
+    }
+}
+
+
