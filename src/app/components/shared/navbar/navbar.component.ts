@@ -3,21 +3,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
-import { GamesService } from '../../../services/games.service';
-import {
-  debounce,
-  debounceTime,
-  distinct,
-  distinctUntilChanged,
-  Subscription,
-  take,
-} from 'rxjs';
+import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 import { GenresService } from '../../../services/genres.service';
 import { PlatformsService } from '../../../services/platforms.service';
+import { FiltersService } from '../../../services/filters.service';
 
 @Component({
   selector: 'app-navbar',
@@ -47,7 +40,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private gamesService: GamesService,
+    private filterService: FiltersService,
     private genresService: GenresService,
     private platformsService: PlatformsService
   ) {}
@@ -76,19 +69,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   orderByTitle() {
-    this.gamesService.setSort('title');
+    this.filterService.setSort('title');
   }
 
   orderByReleaseDate() {
-    this.gamesService.setSort('release_date');
+    this.filterService.setSort('release_date');
   }
 
   filterByGenre(genre: string) {
-    this.gamesService.setFilterGenre(genre);
+    this.filterService.setFilterGenre(genre);
   }
 
   filterByPlatform(platform: string) {
-    this.gamesService.setFilterPlatform(platform);
+    this.filterService.setFilterPlatform(platform);
   }
 
   // Get Initial Data
@@ -113,7 +106,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.searchBoxFormControl.valueChanges
         .pipe(distinctUntilChanged(), debounceTime(500))
         .subscribe((value) => {
-          this.gamesService.setFilterTitle(value || '');
+          this.filterService.setFilterTitle(value || '');
         })
     );
   }

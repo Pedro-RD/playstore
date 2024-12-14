@@ -11,17 +11,12 @@ import {
 } from 'rxjs';
 import { Game, GameDetails } from '../models';
 import { ToastService } from './toast.service';
+import { FiltersService } from './filters.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GamesService {
-  // Filters and Sorts
-  private readonly filterTitle = new BehaviorSubject<string>('');
-  private readonly filterPlatform = new BehaviorSubject<string>('');
-  private readonly filterGenre = new BehaviorSubject<string>('');
-  private readonly sort = new BehaviorSubject<string>('');
-
   private readonly API_LIST = environment.apiUrl + 'gamesList';
   private readonly API_DETAIL = environment.apiUrl + 'gameDetails';
 
@@ -34,14 +29,8 @@ export class GamesService {
 
   constructor(
     private httpClient: HttpClient,
-    private toastService: ToastService
+    private filtersService: FiltersService
   ) {}
-
-  /* TODO
-    Deve ser possível o utilizador pesquisar por um título (a API permite pesquisa por um atributo; NOTA: A API de testes só permite pesquisar por um nome/valor completo!).
-    Deve ser possível o utilizador filtrar os jogos por plataforma e género (existe um objeto na API que lista todas as plataformas e géneros; a API permite pesquisa por um atributo).
-    Deve ser possível o utilizador ordenar a lista por ordem alfabética dos títulos e data de lançamento (a API permite a ordenação por um atributo).
-  */
 
   private readonly games = new BehaviorSubject<Game[]>([]);
   readonly games$ = this.games.asObservable();
@@ -59,36 +48,12 @@ export class GamesService {
     return this.httpClient.get<GameDetails>(`${this.API_DETAIL}/${id}`);
   }
 
-  // Filters and Sorts Functions
-  resetFilters() {
-    this.filterTitle.next('');
-    this.filterPlatform.next('');
-    this.filterGenre.next('');
-    this.sort.next('');
-  }
-
-  setFilterTitle(title: string) {
-    this.filterTitle.next(title);
-  }
-
-  setFilterPlatform(platform: string) {
-    this.filterPlatform.next(platform);
-  }
-
-  setFilterGenre(genre: string) {
-    this.filterGenre.next(genre);
-  }
-
-  setSort(sort: string) {
-    this.sort.next(sort);
-  }
-
   private createUrl(): Observable<string> {
     return combineLatest([
-      this.filterTitle,
-      this.filterPlatform,
-      this.filterGenre,
-      this.sort,
+      this.filtersService.filterTitle$,
+      this.filtersService.filterPlatform$,
+      this.filtersService.filterGenre$,
+      this.filtersService.sort$,
     ]).pipe(
       map(([title, platform, genre, sort]) => {
         let url = `${this.API_LIST}?`;
