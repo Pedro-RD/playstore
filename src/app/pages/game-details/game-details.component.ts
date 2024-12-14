@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { GameDetails } from '../../models';
 import { mergeMap, Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GamesService } from '../../services/games.service';
 import { LoadingService } from '../../services/loading.service';
 
@@ -18,9 +18,10 @@ export class GameDetailsComponent {
     game?: GameDetails;
 
     constructor(
-        private route: ActivatedRoute,
-        private gamesService: GamesService,
-        private loadingService: LoadingService
+        private readonly route: ActivatedRoute,
+        private readonly gamesService: GamesService,
+        private readonly loadingService: LoadingService,
+        private readonly router: Router
     ) {}
 
     ngOnInit(): void {
@@ -49,6 +50,6 @@ export class GameDetailsComponent {
         this.game = game;
     };
     private error = (error: any) => {
-        // TODO
+        this.router.navigate(['/']);
     };
 }
