@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { BehaviorSubject, map, Observable, tap } from 'rxjs';
+import { BehaviorSubject, map, mergeMap, Observable, tap } from 'rxjs';
 import { User } from '../models';
 import { Logger } from '../helpers/logger.helper';
 import { HttpClient } from '@angular/common/http';
@@ -10,30 +10,35 @@ import { FormGroup } from '@angular/forms';
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly loggedUser = new BehaviorSubject<User | undefined>({
-    id: '06c2',
-    name: 'Zé Povinho',
-    email: 'zpovinho@mail.pt',
-    password: '123456',
-    avatar:
-      'https://avatars.steamstatic.com/b32358b1a0f188ff07656a0c265b5af916224e96_full.jpg',
-  });
-
+  private readonly loggedUser = new BehaviorSubject<User | undefined>(
+    undefined
+  );
   private readonly API_USERS = environment.apiUrl + 'users';
-  private baseUrl = 'http://localhost:3000/';
 
   constructor(private http: HttpClient) {}
 
   registerUser(userDetails: User) {
-    return this.http.post(`${this.baseUrl}users`, userDetails);
+    return this.getUserByEmail(userDetails.email).pipe(
+      mergeMap((users) => {
+        if (users.length > 0) {
+          Logger.error('Email already exists');
+          throw new Error('Email already exists');
+        }
+        return this.http.post(`${this.API_USERS}users`, userDetails);
+      }),
+      tap((user) => {
+        this.loggedUser.next(userDetails);
+      })
+    );
   }
 
-  getUserByEmail(email: string): Observable<User[]> {
-    return this.http.get<User[]>(`${this.baseUrl}users?email=${email}`);
+  private getUserByEmail(email: string): Observable<User[]> {
+    return this.http.get<User[]>(`${this.API_USERS}users?email=${email}`);
   }
 
   login(email: string, pw: string): Observable<User> {
-    return this.http.get<User[]>(`${this.baseUrl}users?email=${email}&&password=${pw}`)
+    return this.http
+      .get<User[]>(`${this.API_USERS}users?email=${email}&&password=${pw}`)
       .pipe(
         map((users) => users[0] || undefined),
         tap((user) => {
