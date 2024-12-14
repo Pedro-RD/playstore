@@ -1,37 +1,21 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NavbarComponent } from './components/shared/navbar/navbar.component';
-import { FooterComponent } from './components/shared/footer/footer.component';
-import { LoadingComponent } from './components/shared/loading/loading.component';
-import { LoadingService } from './services/loading.service';
-import { Subscription } from 'rxjs';
-import { ToastComponent } from './components/toast/toast.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { AuthService } from './services/auth.service';
+import { ErrorModalComponent } from './components/error-modal/error-modal.component';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [
-    RouterOutlet,
-    NavbarComponent,
-    FooterComponent,
-    LoadingComponent,
-    ToastComponent,
-    ToastComponent,
-  ],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+    selector: 'app-root',
+    standalone: true,
+    imports: [RouterOutlet, NavbarComponent, ErrorModalComponent],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit, OnDestroy {
-  title = 'PlayStore';
-  subscriptions: Subscription[] = [];
+export class AppComponent implements OnInit {
+    title = 'MaxClip';
 
-  constructor(private loadingService: LoadingService) {}
-
-  ngOnInit(): void {
-    this.subscriptions.push(this.loadingService.loading$.subscribe());
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-  }
+    constructor(private authService: AuthService) {}
+    ngOnInit(): void {
+        this.authService.loadUser();
+    }
 }

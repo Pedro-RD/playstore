@@ -1,80 +1,44 @@
-import { Component } from '@angular/core';
-import {
-  MatError,
-  MatFormField,
-  MatHint,
-  MatLabel,
-  MatSuffix,
-} from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { MatIcon } from '@angular/material/icon';
-import {
-  MatDatepicker,
-  MatDatepickerInput,
-  MatDatepickerToggle,
-} from '@angular/material/datepicker';
-import { MatButton, MatFabButton } from '@angular/material/button';
-import {
-  AsyncPipe,
-  NgClass,
-  NgIf,
-  NgOptimizedImage,
-  NgStyle,
-} from '@angular/common';
-
-class MyErrorStateMatcher extends ErrorStateMatcher {}
+import { Component, OnDestroy } from '@angular/core';
+import { FormUserComponent } from '../../components/form-user/form-user.component';
+import { User } from '../../models';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { Logger } from '../../helpers/logger.helper';
 
 @Component({
-  selector: 'app-register',
-  standalone: true,
-  imports: [
-    MatFormField,
-    MatInput,
-    MatLabel,
-    ReactiveFormsModule,
-    MatError,
-    MatHint,
-    MatIcon,
-    MatDatepickerInput,
-    MatDatepickerToggle,
-    MatDatepicker,
-    MatFabButton,
-    MatButton,
-    AsyncPipe,
-    NgOptimizedImage,
-    NgIf,
-    NgStyle,
-    NgClass,
-    MatSuffix,
-  ],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.scss',
+    selector: 'app-register',
+    standalone: true,
+    imports: [FormUserComponent],
+    templateUrl: './register.component.html',
+    styleUrl: './register.component.scss',
 })
-export class RegisterComponent {
-  emailFormControl: FormControl = new FormControl('');
+export class RegisterComponent implements OnDestroy {
+    private subscriptions: Subscription[] = [];
+    private isRequesting = false;
 
-  protected readonly FormControl = FormControl;
-  matcher: ErrorStateMatcher = new MyErrorStateMatcher();
-  profile: any = {};
-  file: string = '';
+    constructor(private authService: AuthService, private router: Router) {}
 
-  onFileChange(event: any) {
-    const files = event.target.files as FileList;
-
-    if (files.length > 0) {
-      const _file = URL.createObjectURL(files[0]);
-      this.file = _file;
-      this.resetInput();
+    onFormSubmit(user: User) {
+        Logger.log('RegisterComponent', 'onFormSubmit', user);
+        if (this.isRequesting) {
+            return;
+        }
+        this.isRequesting = true;
+        this.subscriptions.push(
+            this.authService.registerUser(user).subscribe({
+                next: () => this.handleSuccess(),
+                error: () => (this.isRequesting = false),
+            })
+        );
     }
-  }
-  resetInput() {
-    const input = document.getElementById(
-      'avatar-input-file'
-    ) as HTMLInputElement;
-    if (input) {
-      input.value = '';
+
+    private handleSuccess() {
+        this.isRequesting = false;
+        this.router.navigate(['']);
     }
-  }
+
+    ngOnDestroy(): void {
+        this.subscriptions.forEach((sub) => sub.unsubscribe());
+    }
 }

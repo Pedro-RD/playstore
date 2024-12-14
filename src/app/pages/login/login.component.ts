@@ -1,58 +1,93 @@
-import { Component } from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {Router, RouterLink} from '@angular/router';
-import {AuthService} from '../../services/auth.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { InputComponent } from '../../components/shared/input/input.component';
+import {
+    FormControl,
+    FormGroup,
+    ReactiveFormsModule,
+    Validators,
+} from '@angular/forms';
+import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+import { FormComponent } from '../../components/shared/form/form.component';
+import { AuthService } from '../../services/auth.service';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    RouterLink
-  ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+    selector: 'app-login',
+    standalone: true,
+    imports: [InputComponent, ReactiveFormsModule, FormComponent],
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.scss',
 })
-export class LoginComponent {
-  loginForm!: FormGroup;
+export class LoginComponent implements OnInit, OnDestroy {
+    private subscriptions: Subscription[] = [];
+    isRequesting = false;
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router,
-  ) {
-    this.initForm();
-  }
+    constructor(private authService: AuthService, private router: Router) {}
 
-  private  initForm() {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+    formGroup = new FormGroup({
+        email: new FormControl('', [
+            Validators.required,
+            Validators.email,
+            Validators.minLength(5),
+            Validators.maxLength(255),
+        ]),
+        password: new FormControl('', [
+            Validators.required,
+            Validators.minLength(6),
+            Validators.maxLength(255),
+        ]),
     });
-  }
 
-  get email() {
-    return this.loginForm.controls['email'];
-  }
+    login() {
+        this.trimValues();
+        if (this.formGroup.valid && !this.isRequesting) {
+            this.isRequesting = true;
+            this.subscriptions.push(
+                this.authService
+                    .login(
+                        this.formGroup.controls.email.value!,
+                        this.formGroup.controls.password.value!
+                    )
+                    .subscribe({
+                        next: () => this.handleRequestSuccess(),
+                        complete: () => (this.isRequesting = false),
+                    })
+            );
+        } else this.formGroup.markAllAsTouched();
+    }
 
-  get password() {
-    return this.loginForm.controls['password'];
-  }
+    private handleRequestSuccess() {
+        this.isRequesting = false;
+        this.router.navigate(['/']);
+    }
 
-  loginUser() {
-    const { email, password } = this.loginForm.value;
-    this.authService.login(email as string, password as string).subscribe(
-      response => {
-        if(response.password === password) {
-          sessionStorage.setItem('email', email as string);
-          this.router.navigate(['/']);
-        } else {
-          alert('Email or password is wrong');
-        }
-      },
-      error => {
-        alert(error);
-      }
-    )
-  }
+    ngOnInit(): void {
+        this.subscriptions.push(
+            this.authService.isLogged().subscribe((isLogged) => {
+                if (isLogged) {
+                    this.router.navigate(['/']);
+                }
+            })
+        );
+    }
+
+    ngOnDestroy(): void {
+        this.isRequesting = false;
+        this.subscriptions.forEach((sub) => sub.unsubscribe());
+    }
+
+    private trimValues() {
+        this.formGroup.controls.email.setValue(
+            this.formGroup.controls?.email?.value?.trim() || ''
+        );
+
+        this.formGroup.controls.password.setValue(
+            this.formGroup.controls?.password?.value?.trim() || ''
+        );
+    }
+
+    // Icons
+    faEnvelope = faEnvelope;
+    faLock = faLock;
 }

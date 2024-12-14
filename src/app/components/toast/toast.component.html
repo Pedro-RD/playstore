@@ -1,9 +1,1 @@
-@for (item of notifications; track item.timestamp) {
-<div [class]="'notification ' + item.type + ' ' + item.status || ''">
-    <span class="header">
-        <span class="title">{{ item.title }}</span>
-        <span class="close" (click)="closeNotification(item)">x</span>
-    </span>
-    <span class="body">{{ item.body }}</span>
-</div>
-}
+<p>toast works!</p>

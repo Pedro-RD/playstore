@@ -1,0 +1,30 @@
+<form [formGroup]="group" (ngSubmit)="onSubmit()">
+    <h1 class="title has-text-centered mb-6">{{ title }}</h1>
+    <ng-content />
+
+    @if (!group.disabled) {
+    <div class="buttons is-centered">
+        <button class="button is-warning" type="reset">
+            Clear&nbsp;&nbsp;
+            <span class="icon is-small">
+                <fa-icon [icon]="faX" />
+            </span>
+        </button>
+
+        <button class="button is-primary" type="submit" [disabled]="group.invalid">
+            Send&nbsp;&nbsp;
+            <span class="icon is-small">
+                @if (group.valid) {
+                <fa-icon [icon]="faCheck" />
+                } @else {
+                <fa-icon [icon]="faExclamation" />
+                }
+            </span>
+        </button>
+    </div>
+    } @else {
+    <ng-content select="[form-footer]" />
+    }
+
+
+</form>

@@ -1,0 +1,3 @@
+@if (profile | async) {
+<app-form-user [initialData]="(profile | async)!" (formSubmit)="saveProfile($event)" />
+}
