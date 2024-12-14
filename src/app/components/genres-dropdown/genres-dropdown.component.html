@@ -1,0 +1,27 @@
+<div class="dropdown is-hoverable">
+    <div class="dropdown-trigger">
+        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+            <span [ngClass]="{'has-text-primary': selectedGenre | async}">
+                <fa-icon [icon]="filterIcon"></fa-icon>
+                &nbsp;Genres
+            </span>
+            <span class="icon is-small">
+                <i class="fas fa-angle-down" aria-hidden="true"></i>
+            </span>
+        </button>
+    </div>
+    <div class="dropdown-menu" id="dropdown-menu" role="menu">
+        <div class="dropdown-content">
+            <a class="dropdown-item" (click)="filterByGenre('')">
+                All
+            </a>
+            @for (genre of genres; track genre) {
+            <a class="dropdown-item" (click)="filterByGenre(genre)"
+                [ngClass]="{'is-active': genre === (selectedGenre | async)}">
+                {{ genre }}
+            </a>
+            }
+        </div>
+
+    </div>
+</div>

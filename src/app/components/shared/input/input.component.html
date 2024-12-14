@@ -1,0 +1,37 @@
+<div class="field my-3">
+    <p class="control has-icons-left has-icons-right">
+        <input class="input" [placeholder]="placeholder || label" [formControl]="control" [type]="type"
+            [ngClass]="{ 'is-success': control.touched && control.valid, 'is-danger': control.touched && control.invalid }" />
+        @if (icon) {
+        <span class="icon is-small is-left">
+            <fa-icon [icon]="icon"></fa-icon>
+        </span>
+        }
+        <span class="icon is-small is-right">
+            @if (control.valid && control.touched) {
+            <fa-icon [icon]="faCheck" class="has-text-sucesses"></fa-icon>
+            } @else if (control.invalid) {
+            <fa-icon [icon]="faExclamation" class="has-text-danger"></fa-icon>
+            }
+        </span>
+    </p>
+    @if(control.invalid && control.touched) {
+    <p class="help is-danger">
+        @if (control.errors?.['required']) {
+        This field is required.
+        } @else if (control.errors?.['email']) {
+        Please enter a valid email.
+        } @else if (control.errors?.['minlength']) {
+        Please enter at least {{ control.errors?.['minlength']?.['requiredLength'] }} characters.
+        } @else if (control.errors?.['maxlength']) {
+        Please enter at most {{ control.errors?.['maxlength']?.['requiredLength'] }} characters.
+        } @else if (control.errors?.['pattern']) {
+        Please enter a valid value.
+        } @else if (control.errors?.['passwordMismatch']) {
+        Passwords do not match.
+        } @else {
+        Please enter a valid value.
+        }
+    </p>
+    }
+</div>

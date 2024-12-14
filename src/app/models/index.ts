@@ -5,16 +5,18 @@ import { Platform } from './platform';
 import { Genre } from './genre';
 import { GameDetails, Screenshot, SystemRequirements } from './game-details';
 import { Notification } from './notification';
+import { ErrorBox } from './error-box';
 
 export {
-  type User,
-  type UserGame,
-  type Game,
-  type Platform,
-  type Genre,
-  type GameDetails,
-  type Screenshot,
-  type SystemRequirements,
-  type GameRecord,
-  type Notification,
+    type User,
+    type UserGame,
+    type Game,
+    type Platform,
+    type Genre,
+    type GameDetails,
+    type Screenshot,
+    type SystemRequirements,
+    type GameRecord,
+    type Notification,
+    type ErrorBox,
 };

@@ -1,0 +1,3 @@
+<button (click)="orderByDate()" class="button is-dark">
+    <fa-icon [icon]="(icon | async)!" [ngClass]="{'has-text-primary': (isSortedByDate | async)}" />
+</button>
