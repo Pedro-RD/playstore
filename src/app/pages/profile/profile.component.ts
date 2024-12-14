@@ -3,7 +3,6 @@ import { FormUserComponent } from '../../components/form-user/form-user.componen
 
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { User } from '../../models';
 import { AsyncPipe } from '@angular/common';
 import { tap } from 'rxjs';
 
@@ -15,7 +14,10 @@ import { tap } from 'rxjs';
     styleUrl: './profile.component.scss',
 })
 export class ProfileComponent {
-    constructor(private authService: AuthService, private router: Router) {}
+    constructor(
+        private readonly authService: AuthService,
+        private readonly router: Router
+    ) {}
 
     get profile() {
         return this.authService.profile().pipe(
