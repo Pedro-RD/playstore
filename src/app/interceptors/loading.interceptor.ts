@@ -10,7 +10,6 @@ export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
 
   loadingService.show();
   return next(req).pipe(
-    debounceTime(1000),
     tap(() => loadingService.hide()),
     catchError((error) => {
       loadingService.hide();

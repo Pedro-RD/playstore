@@ -1,15 +1,30 @@
 import { Component } from '@angular/core';
-import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from '@angular/material/form-field';
-import {MatInput} from '@angular/material/input';
-import {FormControl, ReactiveFormsModule} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
-import {MatIcon} from '@angular/material/icon';
-import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
-import {MatButton, MatFabButton} from '@angular/material/button';
-import {AsyncPipe, NgClass, NgIf, NgOptimizedImage, NgStyle} from '@angular/common';
+import {
+  MatError,
+  MatFormField,
+  MatHint,
+  MatLabel,
+  MatSuffix,
+} from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { MatIcon } from '@angular/material/icon';
+import {
+  MatDatepicker,
+  MatDatepickerInput,
+  MatDatepickerToggle,
+} from '@angular/material/datepicker';
+import { MatButton, MatFabButton } from '@angular/material/button';
+import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+  NgOptimizedImage,
+  NgStyle,
+} from '@angular/common';
 
-class MyErrorStateMatcher extends ErrorStateMatcher {
-}
+class MyErrorStateMatcher extends ErrorStateMatcher {}
 
 @Component({
   selector: 'app-register',
@@ -32,10 +47,10 @@ class MyErrorStateMatcher extends ErrorStateMatcher {
     NgIf,
     NgStyle,
     NgClass,
-    MatSuffix
+    MatSuffix,
   ],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
   emailFormControl: FormControl = new FormControl('');
@@ -53,12 +68,13 @@ export class RegisterComponent {
       this.file = _file;
       this.resetInput();
     }
-
   }
-  resetInput(){
-    const input = document.getElementById('avatar-input-file') as HTMLInputElement;
-    if(input){
-      input.value = "";
+  resetInput() {
+    const input = document.getElementById(
+      'avatar-input-file'
+    ) as HTMLInputElement;
+    if (input) {
+      input.value = '';
     }
   }
 }
