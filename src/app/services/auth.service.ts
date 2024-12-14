@@ -38,7 +38,7 @@ export class AuthService {
 
   login(email: string, pw: string): Observable<User> {
     return this.http
-      .get<User[]>(`${this.API_USERS}users?email=${email}&&password=${pw}`)
+      .get<User[]>(`${this.API_USERS}?email=${email}&&password=${pw}`)
       .pipe(
         map((users) => users[0] || undefined),
         tap((user) => {
