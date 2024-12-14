@@ -14,7 +14,7 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [JsonPipe,
+  imports: [
     AsyncPipe,
     MatCardContent,
     MatCard,
@@ -27,7 +27,6 @@ import {Router} from '@angular/router';
     MatSuffix,
     MatLabel,
     MatError,
-    NgOptimizedImage,
     ReactiveFormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './profile.component.html',
@@ -42,25 +41,26 @@ export class ProfileComponent implements OnInit{
   constructor(private authService: AuthService, private router: Router)  { }
 
   profileForm = new FormGroup({
-    username: new FormControl('', [
+    username: new FormControl({ value: '', disabled: true }, [
       Validators.required,
       Validators.minLength(5),
-      Validators.pattern('^[^\\s]+$') // Disallow whitespace
+      Validators.pattern('^(?!\\s*$).+') // Allow spaces but not empty
     ]),
-    email: new FormControl('', [
+    email: new FormControl({ value: '', disabled: true }, [
       Validators.required,
       Validators.email
     ]),
-    password: new FormControl('', [
+    password: new FormControl({ value: '', disabled: true }, [
       Validators.required,
       Validators.minLength(8),
       Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$/)
     ]),
-    avatar: new FormControl('', [
+    avatar: new FormControl({ value: '', disabled: true }, [
       Validators.pattern('(https?:\\/\\/.*\\.(?:png|jpg|jpeg))') // URL pattern for images
     ])
   });
 
+  
   clearInput(controlName: string): void {
     const control = this.profileForm.get(controlName);
     if (control) {
@@ -69,15 +69,22 @@ export class ProfileComponent implements OnInit{
     }
   }
 
-
   ngOnInit() {
     this.loadProfile();
   }
 
-  loadProfile (): void {
-
+  loadProfile(): void {
+    this.authService.profile().subscribe(profile => {
+      if (profile) {
+        this.profileForm.patchValue({
+          username: profile.name,
+          email: profile.email,
+          avatar: profile.avatar,
+          password: profile.password
+        });
+      }
+    });
   }
-
 
   get profile() {
     return this.authService.profile();
@@ -85,12 +92,11 @@ export class ProfileComponent implements OnInit{
 
   toggleEdit(): void {
     this.edit = !this.edit;
-    console.log('Edit mode:', this.edit); // Log edit state
+    Logger.log('Edit Mode', this.edit);
     if (!this.edit) {
       this.saveProfile();
     }
   }
-
 
   saveProfile(): void {
     if(this.profileForm.valid) {
@@ -99,7 +105,6 @@ export class ProfileComponent implements OnInit{
       Logger.error('Form is invalid')
     }
   }
-
 
   onPhotoChange(event: Event): void {
     const file = (event.target as HTMLInputElement)?.files?.[0];
@@ -116,5 +121,4 @@ export class ProfileComponent implements OnInit{
   onSubmit(): void {
     Logger.log('Form Submitted', this.profileForm.value);
   }
-
 }
