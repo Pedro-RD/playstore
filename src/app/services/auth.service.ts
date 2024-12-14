@@ -1,10 +1,19 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { BehaviorSubject, map, mergeMap, Observable, tap } from 'rxjs';
+import {
+    BehaviorSubject,
+    catchError,
+    map,
+    mergeMap,
+    Observable,
+    tap,
+} from 'rxjs';
 import { User } from '../models';
 import { Logger } from '../helpers/logger.helper';
 import { HttpClient } from '@angular/common/http';
 import { LocalStorageService } from './local-storage.service';
+import { ErrorBoxService } from './error-box.service';
+import { ToastService } from './toast.service';
 
 @Injectable({
     providedIn: 'root',
@@ -17,8 +26,10 @@ export class AuthService {
     private readonly API_USERS = environment.apiUrl + 'users';
 
     constructor(
-        private http: HttpClient,
-        private localStorageService: LocalStorageService
+        private readonly http: HttpClient,
+        private readonly localStorageService: LocalStorageService,
+        private readonly errorService: ErrorBoxService,
+        private readonly toastService: ToastService
     ) {}
 
     registerUser(userDetails: User) {
@@ -26,6 +37,10 @@ export class AuthService {
             mergeMap((users) => {
                 if (users.length > 0) {
                     Logger.error('Email already exists');
+                    this.errorService.setError(
+                        'Registration failed',
+                        'Email already exists'
+                    );
                     throw new Error('Email already exists');
                 }
                 return this.http.post<User>(`${this.API_USERS}`, userDetails);
@@ -33,7 +48,20 @@ export class AuthService {
             tap((user) => {
                 this.loggedUser.next(user);
                 this.saveUser(user);
+                this.toastService.newNotification({
+                    title: 'User registered',
+                    body: 'You have successfully registered',
+                    type: 'success',
+                });
                 Logger.log('User registered');
+            }),
+            catchError((error) => {
+                this.errorService.setError(
+                    'Registration failed',
+                    'It was not possible to register the user'
+                );
+                Logger.error(`Error registering user: ${error.message}`);
+                throw error;
             })
         );
     }
@@ -54,6 +82,10 @@ export class AuthService {
                         this.saveUser(user);
                     } else {
                         Logger.error('Invalid email or password');
+                        this.errorService.setError(
+                            'Login failed',
+                            'Invalid email or password'
+                        );
                         throw new Error('Invalid email or password');
                     }
                 })
@@ -65,6 +97,10 @@ export class AuthService {
             mergeMap((user) => {
                 if (!user) {
                     Logger.error('User not found');
+                    this.errorService.setError(
+                        'User not found',
+                        'It was not possible to update the user'
+                    );
                     throw new Error('User not found');
                 }
                 if (user.email !== newProfile.email) {
@@ -72,6 +108,10 @@ export class AuthService {
                         map((users) => {
                             if (users.length > 0) {
                                 Logger.error('Email already exists');
+                                this.errorService.setError(
+                                    'Email already exists',
+                                    'It was not possible to update the user'
+                                );
                                 throw new Error('Email already exists');
                             }
                             return user;
@@ -89,6 +129,11 @@ export class AuthService {
             tap((user) => {
                 this.loggedUser.next(user);
                 this.saveUser(user);
+                this.toastService.newNotification({
+                    title: 'User updated',
+                    body: 'You have successfully updated your profile',
+                    type: 'success',
+                });
                 Logger.log('User updated');
             })
         );
@@ -105,6 +150,11 @@ export class AuthService {
     logout(): void {
         this.localStorageService.removeItem(this.STORAGE_KEY);
         this.loggedUser.next(undefined);
+        this.toastService.newNotification({
+            title: 'Logged out',
+            body: 'You have successfully logged out',
+            type: 'info',
+        });
     }
 
     loadUser(): void {

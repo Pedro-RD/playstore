@@ -1,0 +1,33 @@
+@if(isLogged |async) {
+<div class="field has-addons">
+    <p class="control">
+        <button class="button">
+            <span class="icon is-small">
+                <fa-icon [icon]="faClock" /> </span>
+            <span>Play Later</span>
+        </button>
+    </p>
+    <p class="control">
+        <button class="button">
+            <span class="icon is-small">
+                <fa-icon [icon]="faGamepad" /> </span>
+            <span>Playing</span>
+        </button>
+    </p>
+    <p class="control">
+        <button class="button">
+            <span class="icon is-small">
+                <fa-icon [icon]="faCheck" /> </span>
+            <span>Completed</span>
+        </button>
+    </p>
+
+    <p class="control">
+        <button class="button">
+            <span class="icon is-small">
+                <fa-icon [icon]="faX" /> </span>
+            <span>Played</span>
+        </button>
+    </p>
+</div>
+}

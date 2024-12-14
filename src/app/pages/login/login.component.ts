@@ -23,7 +23,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
     isRequesting = false;
 
-    constructor(private authService: AuthService, private router: Router) {}
+    constructor(
+        private readonly authService: AuthService,
+        private readonly router: Router
+    ) {}
 
     formGroup = new FormGroup({
         email: new FormControl('', [
@@ -52,6 +55,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                     .subscribe({
                         next: () => this.handleRequestSuccess(),
                         complete: () => (this.isRequesting = false),
+                        error: () => (this.isRequesting = false),
                     })
             );
         } else this.formGroup.markAllAsTouched();

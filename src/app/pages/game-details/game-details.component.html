@@ -1,1 +1,67 @@
-<p>game-details works!</p>
+<div class="container">
+    @if (game) {
+    <div class="card">
+        <!-- Thumbnail -->
+        <div class="card-image">
+            <figure class="image">
+                <img [src]="game.thumbnail" [alt]="game.title">
+            </figure>
+        </div>
+        <!-- Title -->
+        <header class="card-header">
+            <p class="card-header-title">{{ game.title }}</p>
+        </header>
+
+
+        <!-- Card Content -->
+        <div class="card-content">
+            <div class="content">
+                <p><strong>Status:</strong> {{ game.status }}</p>
+                <p><strong>Short Description:</strong> {{ game.short_description }}</p>
+                <p><strong>Release Date:</strong> {{ game.release_date }}</p>
+                <p><strong>Genre:</strong> {{ game.genre }}</p>
+                <p><strong>Platform:</strong> {{ game.platform }}</p>
+                <p><strong>Publisher:</strong> {{ game.publisher }}</p>
+                <p><strong>Developer:</strong> {{ game.developer }}</p>
+
+                <!-- Minimum System Requirements -->
+                <div class="block">
+                    <p class="subtitle">Minimum System Requirements:</p>
+                    <ul>
+                        @if (game.minimum_system_requirements) {
+                        <li><strong>OS:</strong> {{ game.minimum_system_requirements.os }}</li>
+                        <li><strong>Processor:</strong> {{ game.minimum_system_requirements.processor }}</li>
+                        <li><strong>Memory:</strong> {{ game.minimum_system_requirements.memory }}</li>
+                        <li><strong>Graphics:</strong> {{ game.minimum_system_requirements.graphics }}</li>
+                        <li><strong>Storage:</strong> {{ game.minimum_system_requirements.storage }}</li>
+                        }
+                    </ul>
+                </div>
+
+                <!-- Description -->
+                <div class="block">
+                    <p class="subtitle">Description:</p>
+                    <p>{{ game.description }}</p>
+                </div>
+
+                <!-- Game URL -->
+                <p><strong>Game URL:</strong> <a [href]="game.game_url" target="_blank">{{ game.game_url }}</a></p>
+            </div>
+        </div>
+
+        <!-- Screenshots -->
+        <div class="card-content">
+            <p class="subtitle">Screenshots:</p>
+            <div class="columns is-multiline">
+                @for (screenshot of game.screenshots; track screenshot.id) {
+                <div class="column is-4">
+                    <figure class="image">
+                        <img [src]="screenshot.image" [alt]="'Screenshot ' + screenshot.id">
+                    </figure>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+    }
+</div>

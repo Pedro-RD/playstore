@@ -1,1 +1,6 @@
-<p>loading works!</p>
+@if (loading$ | async) {
+<div class="loading-page">
+    <h1 class="title">Loading...</h1>
+    <progress class="progress is-large is-info" max="100"></progress>
+</div>
+}

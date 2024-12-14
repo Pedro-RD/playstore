@@ -8,7 +8,6 @@ import {
 import { FiltersService } from '../../services/filters.service';
 import { map, Observable, tap } from 'rxjs';
 import { AsyncPipe, NgClass } from '@angular/common';
-import { Logger } from '../../helpers/logger.helper';
 
 @Component({
     selector: 'app-sort-title-button',
@@ -28,7 +27,6 @@ export class SortTitleButtonComponent {
 
     private get isAscending() {
         return this.filterService.sort$.pipe(
-            tap(Logger.warn),
             map((filter) => !filter.includes('title') || !filter.includes('-'))
         );
     }
