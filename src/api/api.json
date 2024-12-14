@@ -79,10 +79,12 @@
           "createDate": "2024-01-01T00:00:00.000Z"
         }
       ]
-    },
+    }
+  ],
+  "usersListPlayed": [
     {
       "id": "qepb",
-      "userId": "78e3",
+      "userId": "06c2",
       "games": [
         {
           "gameId": "582",
@@ -91,7 +93,6 @@
       ]
     }
   ],
-  "usersListPlayed": [],
   "usersListCompleted": [],
 
   "platform": [

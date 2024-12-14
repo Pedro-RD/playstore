@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, combineLatest, map } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -41,4 +41,32 @@ export class FiltersService {
             this.sort.next(sort);
         }
     }
+
+    filters = combineLatest([
+        this.filterTitle$,
+        this.filterPlatform$,
+        this.filterGenre$,
+        this.sort$,
+    ]).pipe(
+        map(([title, platform, genre, sort]) => {
+            let url = `?`;
+
+            if (title) {
+                url += `title=${title}&`;
+            }
+
+            if (platform) {
+                url += `platform=${platform}&`;
+            }
+
+            if (genre) {
+                url += `genre=${genre}&`;
+            }
+
+            if (sort) {
+                url += `_sort=${sort}&`;
+            }
+            return url;
+        })
+    );
 }
