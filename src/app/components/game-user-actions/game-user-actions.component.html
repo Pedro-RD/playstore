@@ -1,34 +1,35 @@
+<!-- HTML -->
 @if(isLogged |async) {
     <div class="field has-addons is-flex is-flex-wrap-wrap is-justify-content-space-between">
-        <div class="control" style="flex: 0 0 calc(50% - 0.5rem); margin-bottom: 0.5rem;">
+        <div class="control button-container">
             <button class="button">
-            <span class="icon is-small">
-                <fa-icon [icon]="faClock" />
-            </span>
+                <span class="icon is-small">
+                    <fa-icon [icon]="faClock" />
+                </span>
                 <span>Play Later</span>
             </button>
         </div>
-        <div class="control" style="flex: 0 0 calc(50% - 0.5rem); margin-bottom: 0.5rem;">
+        <div class="control button-container">
             <button class="button">
-            <span class="icon is-small">
-                <fa-icon [icon]="faGamepad" />
-            </span>
+                <span class="icon is-small">
+                    <fa-icon [icon]="faGamepad" />
+                </span>
                 <span>Playing</span>
             </button>
         </div>
-        <div class="control" style="flex: 0 0 calc(50% - 0.5rem); margin-bottom: 0.5rem;">
+        <div class="control button-container">
             <button class="button">
-            <span class="icon is-small">
-                <fa-icon [icon]="faCheck" />
-            </span>
+                <span class="icon is-small">
+                    <fa-icon [icon]="faCheck" />
+                </span>
                 <span>Completed</span>
             </button>
         </div>
-        <div class="control" style="flex: 0 0 calc(50% - 0.5rem); margin-bottom: 0.5rem;">
+        <div class="control button-container">
             <button class="button">
-            <span class="icon is-small">
-                <fa-icon [icon]="faX" />
-            </span>
+                <span class="icon is-small">
+                    <fa-icon [icon]="faX" />
+                </span>
                 <span>Played</span>
             </button>
         </div>
