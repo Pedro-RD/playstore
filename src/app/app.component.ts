@@ -5,6 +5,7 @@ import { AuthService } from './services/auth.service';
 import { ErrorModalComponent } from './components/error-modal/error-modal.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { ToastComponent } from './components/toast/toast.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @Component({
     selector: 'app-root',
@@ -15,6 +16,7 @@ import { ToastComponent } from './components/toast/toast.component';
         ErrorModalComponent,
         LoadingComponent,
         ToastComponent,
+        FooterComponent,
     ],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',

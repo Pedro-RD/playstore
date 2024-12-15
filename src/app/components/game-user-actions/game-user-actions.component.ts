@@ -13,6 +13,7 @@ import { AsyncPipe, NgClass } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Logger } from '../../helpers/logger.helper';
 import { mergeMap, Observable, of, Subscription, tap } from 'rxjs';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
     selector: 'app-game-user-actions',
@@ -29,7 +30,8 @@ export class GameUserActionsComponent implements OnInit, OnDestroy {
 
     constructor(
         private readonly authService: AuthService,
-        private readonly userGamesService: UserGamesService
+        private readonly userGamesService: UserGamesService,
+        private readonly toastService: ToastService
     ) {}
 
     ngOnInit(): void {
@@ -79,6 +81,11 @@ export class GameUserActionsComponent implements OnInit, OnDestroy {
         return this.userGamesService.addToList(`${this.game.id}`, list).pipe(
             tap(() => {
                 this.list = list;
+                this.toastService.newNotification({
+                    title: 'Game added to ' + list,
+                    body: `The game ${this.game.title} has been added to your ${list} list.`,
+                    type: 'success',
+                });
             })
         );
     }
@@ -89,6 +96,11 @@ export class GameUserActionsComponent implements OnInit, OnDestroy {
             .pipe(
                 tap(() => {
                     this.list = '';
+                    this.toastService.newNotification({
+                        title: 'Game removed from ' + list,
+                        body: `The game ${this.game.title} has been removed from your ${list} list.`,
+                        type: 'success',
+                    });
                 })
             );
     }
