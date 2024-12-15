@@ -20,7 +20,7 @@ export class ToastService {
         if (notification.type !== 'error') {
             setTimeout(() => {
                 this.removeNotification(notification);
-            }, 5000);
+            }, 2000);
         }
     }
 
