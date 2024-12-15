@@ -1,32 +1,36 @@
 <!-- HTML -->
 @if(isLogged |async) {
-<div class="field has-addons is-flex is-flex-wrap-wrap is-justify-content-space-between">
-    <div class="control button-container">
-        <button class="button" (click)="addToList('playLater')">
+<div class="is-flex is-flex-wrap-wrap is-justify-content-space-between">
+    <div class="button-container">
+        <button class="button" (click)="addToList('playLater')" [ngClass]="{'is-primary': list === 'playLater'}"
+            [disabled]="list === 'playLater'">
             <span class="icon is-small">
                 <fa-icon [icon]="faClock" />
             </span>
             <span>Play Later</span>
         </button>
     </div>
-    <div class="control button-container">
-        <button class="button" (click)="addToList('playing')">
+    <div class="button-container">
+        <button class="button" (click)="addToList('playing')" [ngClass]="{'is-primary': list === 'playing'}"
+            [disabled]="list === 'playing'">
             <span class="icon is-small">
                 <fa-icon [icon]="faGamepad" />
             </span>
             <span>Playing</span>
         </button>
     </div>
-    <div class="control button-container">
-        <button class="button" (click)="addToList('completed')">
+    <div class="button-container">
+        <button class="button" (click)="addToList('completed')" [ngClass]="{'is-primary': list === 'completed'}"
+            [disabled]="list === 'completed'">
             <span class="icon is-small">
                 <fa-icon [icon]="faCheck" />
             </span>
             <span>Completed</span>
         </button>
     </div>
-    <div class="control button-container">
-        <button class="button" (click)="addToList('played')">
+    <div class="button-container">
+        <button class="button" (click)="addToList('played')" [ngClass]="{'is-primary': list === 'played'}"
+            [disabled]="list === 'played'">
             <span class="icon is-small">
                 <fa-icon [icon]="faX" />
             </span>
