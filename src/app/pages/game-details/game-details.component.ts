@@ -4,11 +4,12 @@ import { mergeMap, Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GamesService } from '../../services/games.service';
 import { LoadingService } from '../../services/loading.service';
+import { GameUserActionsComponent } from '../../components/game-user-actions/game-user-actions.component';
 
 @Component({
     selector: 'app-game-details',
     standalone: true,
-    imports: [],
+    imports: [GameUserActionsComponent],
     templateUrl: './game-details.component.html',
     styleUrl: './game-details.component.scss',
 })

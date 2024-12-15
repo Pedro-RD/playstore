@@ -1,12 +1,14 @@
-<div class="box my-4">
+<div class="box my-4 is-fullheight">
     <article class="media">
         <div class="media-left">
             <figure class="image is-128x128">
                 <img [src]="game.thumbnail" [alt]="game.title" />
             </figure>
             <div class="buttons is-flex is-flex-direction-column mt-2">
-                <a [href]="game.game_url" target="_blank" class="has-background-danger button is-small is-link mb-2 has-text-black ">Official Page</a>
-                <a [href]="game.freetogame_profile_url" target="_blank" class="has-background-primary has-text-black button is-small is-link mb-2">FreeToGame</a>
+                <a [href]="game.game_url" target="_blank"
+                    class="has-background-danger button is-small is-link mb-2 has-text-black ">Official Page</a>
+                <a [href]="game.freetogame_profile_url" target="_blank"
+                    class="has-background-primary has-text-black button is-small is-link mb-2">FreeToGame</a>
                 <a [routerLink]="['game', game.id]" class="has-background-warning button is-small is-info">Details</a>
             </div>
         </div>
@@ -23,4 +25,3 @@
         </div>
     </article>
 </div>
-

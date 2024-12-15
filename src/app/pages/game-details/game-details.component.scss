@@ -17,3 +17,20 @@
     width: calc(33.333% - 10px);
     border-radius: 8px;
 }
+
+.card-header {
+    text-align: center;
+
+    .card-header-title {
+        font-size: 2rem;
+    }
+}
+
+.image-item {
+    figure {
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+}

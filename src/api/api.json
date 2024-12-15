@@ -2,7 +2,7 @@
   "users": [
     {
       "id": "06c2",
-      "name": "Zé Povinho",
+      "name": "Zé Povinho 2",
       "email": "zpovinho@mail.pt",
       "password": "123456",
       "avatar": "https://avatars.steamstatic.com/b32358b1a0f188ff07656a0c265b5af916224e96_full.jpg"
@@ -34,18 +34,20 @@
       "email": "fangs@mail.it",
       "password": "456789",
       "avatar": "https://avatars.steamstatic.com/6eb25c6f96554c7724db04d509067bc2dfcbd006_full.jpg"
+    },
+    {
+      "id": "a795",
+      "name": "Pedro Dias 2",
+      "email": "Pedro.Dias.T0098247@edu.atec.pt",
+      "password": "test12345",
+      "avatar": null
     }
   ],
   "usersListPlayLater": [
     {
       "id": "9ou3",
       "userId": "06c2",
-      "games": [
-        {
-          "gameId": "516",
-          "createDate": "2024-12-15T01:48:59.709Z"
-        }
-      ]
+      "games": []
     },
     {
       "id": "emif",
@@ -84,12 +86,16 @@
       "userId": "06c2",
       "games": [
         {
-          "gameId": "508",
-          "createDate": "2024-12-15T01:49:05.177Z"
+          "gameId": "516",
+          "createDate": "2024-12-15T01:54:33.552Z"
+        },
+        {
+          "gameId": "340",
+          "createDate": "2024-12-15T02:11:46.703Z"
         },
         {
           "gameId": "582",
-          "createDate": "2024-12-15T01:50:10.041Z"
+          "createDate": "2024-12-15T09:01:24.857Z"
         }
       ]
     }
@@ -100,8 +106,20 @@
       "userId": "06c2",
       "games": [
         {
+          "gameId": "508",
+          "createDate": "2024-12-15T01:54:45.116Z"
+        },
+        {
           "gameId": "345",
-          "createDate": "2024-12-15T01:52:04.625Z"
+          "createDate": "2024-12-15T01:54:46.890Z"
+        },
+        {
+          "gameId": "540",
+          "createDate": "2024-12-15T01:54:49.897Z"
+        },
+        {
+          "gameId": "523",
+          "createDate": "2024-12-15T02:11:47.986Z"
         }
       ]
     }
@@ -110,12 +128,7 @@
     {
       "id": "5d88",
       "userId": "06c2",
-      "games": [
-        {
-          "gameId": "540",
-          "createDate": "2024-12-15T01:49:16.174Z"
-        }
-      ]
+      "games": []
     }
   ],
   "platform": [

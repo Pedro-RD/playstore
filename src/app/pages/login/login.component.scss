@@ -1,8 +1,4 @@
-.input-container {
-    width: 50%;
+:host {
+    max-width: 500px;
     margin: 0 auto;
-}
-
-app-input {
-    width: 100%;
 }

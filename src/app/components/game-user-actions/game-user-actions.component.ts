@@ -5,13 +5,14 @@ import {
     faX,
     faClock,
     faGamepad,
+    faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../services/auth.service';
 import { UserGamesService } from '../../services/user-games.service';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Logger } from '../../helpers/logger.helper';
-import { mergeMap, Observable, of, Subscription } from 'rxjs';
+import { mergeMap, Observable, of, Subscription, tap } from 'rxjs';
 
 @Component({
     selector: 'app-game-user-actions',
@@ -59,18 +60,37 @@ export class GameUserActionsComponent implements OnInit, OnDestroy {
         return this.authService.isLogged();
     }
 
-    addToList(list: 'played' | 'completed' | 'playing' | 'playLater') {
+    handleClick(list: 'played' | 'completed' | 'playing' | 'playLater') {
         Logger.log('GameUserActionsComponent.addToList', list);
+
         this.subscriptions.push(
-            this.userGamesService.addToList(`${this.game.id}`, list).subscribe(
-                () => {
-                    this.list = list;
-                },
-                (error) => {
+            (list === this.list
+                ? this.removeFromList(list)
+                : this.addToList(list)
+            ).subscribe({
+                error: (error) => {
                     Logger.error('GameUserActionsComponent.addToList', error);
-                }
-            )
+                },
+            })
         );
+    }
+
+    addToList(list: 'played' | 'completed' | 'playing' | 'playLater') {
+        return this.userGamesService.addToList(`${this.game.id}`, list).pipe(
+            tap(() => {
+                this.list = list;
+            })
+        );
+    }
+
+    removeFromList(list: 'played' | 'completed' | 'playing' | 'playLater') {
+        return this.userGamesService
+            .removeFromList(`${this.game.id}`, list)
+            .pipe(
+                tap(() => {
+                    this.list = '';
+                })
+            );
     }
 
     // Icons
@@ -78,4 +98,5 @@ export class GameUserActionsComponent implements OnInit, OnDestroy {
     faX = faX;
     faClock = faClock;
     faGamepad = faGamepad;
+    faTrash = faTrash;
 }
