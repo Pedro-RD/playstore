@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Game } from '../../models';
 import {
     faCheck,
@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../services/auth.service';
 import { UserGamesService } from '../../services/user-games.service';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Logger } from '../../helpers/logger.helper';
 import { Subscription } from 'rxjs';
@@ -16,18 +16,30 @@ import { Subscription } from 'rxjs';
 @Component({
     selector: 'app-game-user-actions',
     standalone: true,
-    imports: [AsyncPipe, FontAwesomeModule],
+    imports: [AsyncPipe, FontAwesomeModule, NgClass],
     templateUrl: './game-user-actions.component.html',
     styleUrl: './game-user-actions.component.scss',
 })
-export class GameUserActionsComponent implements OnDestroy {
+export class GameUserActionsComponent implements OnInit, OnDestroy {
     @Input({ required: true }) game!: Game;
     subscriptions: Subscription[] = [];
+
+    list: string = '';
 
     constructor(
         private readonly authService: AuthService,
         private readonly userGamesService: UserGamesService
     ) {}
+
+    ngOnInit(): void {
+        this.subscriptions.push(
+            this.userGamesService
+                .isGameListed(`${this.game.id}`)
+                .subscribe((list) => {
+                    this.list = list;
+                })
+        );
+    }
 
     ngOnDestroy(): void {
         this.subscriptions.forEach((s) => s.unsubscribe());
@@ -40,7 +52,14 @@ export class GameUserActionsComponent implements OnDestroy {
     addToList(list: 'played' | 'completed' | 'playing' | 'playLater') {
         Logger.log('GameUserActionsComponent.addToList', list);
         this.subscriptions.push(
-            this.userGamesService.addToList(`${this.game.id}`, list).subscribe()
+            this.userGamesService.addToList(`${this.game.id}`, list).subscribe(
+                () => {
+                    this.list = list;
+                },
+                (error) => {
+                    Logger.error('GameUserActionsComponent.addToList', error);
+                }
+            )
         );
     }
 

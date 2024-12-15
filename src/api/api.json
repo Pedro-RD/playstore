@@ -42,8 +42,8 @@
       "userId": "06c2",
       "games": [
         {
-          "gameId": "582",
-          "createDate": "2024-01-01T00:00:00.000Z"
+          "gameId": "516",
+          "createDate": "2024-12-15T01:48:59.709Z"
         }
       ]
     },
@@ -78,6 +78,20 @@
           "createDate": "2024-01-01T00:00:00.000Z"
         }
       ]
+    },
+    {
+      "id": "0cbf",
+      "userId": "06c2",
+      "games": [
+        {
+          "gameId": "508",
+          "createDate": "2024-12-15T01:49:05.177Z"
+        },
+        {
+          "gameId": "582",
+          "createDate": "2024-12-15T01:50:10.041Z"
+        }
+      ]
     }
   ],
   "usersListPlayed": [
@@ -86,13 +100,24 @@
       "userId": "06c2",
       "games": [
         {
-          "gameId": "582",
-          "createDate": "2024-01-01T00:00:00.000Z"
+          "gameId": "345",
+          "createDate": "2024-12-15T01:52:04.625Z"
         }
       ]
     }
   ],
-  "usersListCompleted": [],
+  "usersListCompleted": [
+    {
+      "id": "5d88",
+      "userId": "06c2",
+      "games": [
+        {
+          "gameId": "540",
+          "createDate": "2024-12-15T01:49:16.174Z"
+        }
+      ]
+    }
+  ],
   "platform": [
     {
       "id": "4e6c",
