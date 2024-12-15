@@ -1,4 +1,6 @@
-<app-form [group]="formGroup" (submit)="login()" title="Login" class="is-block w-full px-3 py-3 my-auto is-small-box">
-    <app-input label="Email" type="email" [control]="formGroup.controls.email" [icon]="faEnvelope" />
-    <app-input label="Password" type="password" [control]="formGroup.controls.password" [icon]="faLock" />
-</app-form>
+<div class="login-container">
+    <app-form [group]="formGroup" (submit)="login()" title="Login" class="is-block w-full px-3 py-3 my-auto">
+        <app-input label="Email" type="email" [control]="formGroup.controls.email" [icon]="faEnvelope" />
+        <app-input label="Password" type="password" [control]="formGroup.controls.password" [icon]="faLock" />
+    </app-form>
+</div>
