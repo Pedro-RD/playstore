@@ -2,7 +2,7 @@
   "users": [
     {
       "id": "06c2",
-      "name": "Zé Povinho 2",
+      "name": "Zé Povinho",
       "email": "zpovinho@mail.pt",
       "password": "123456",
       "avatar": "https://avatars.steamstatic.com/b32358b1a0f188ff07656a0c265b5af916224e96_full.jpg"
@@ -34,20 +34,19 @@
       "email": "fangs@mail.it",
       "password": "456789",
       "avatar": "https://avatars.steamstatic.com/6eb25c6f96554c7724db04d509067bc2dfcbd006_full.jpg"
-    },
-    {
-      "id": "a795",
-      "name": "Pedro Dias 2",
-      "email": "Pedro.Dias.T0098247@edu.atec.pt",
-      "password": "test12345",
-      "avatar": null
     }
   ],
+
   "usersListPlayLater": [
     {
       "id": "9ou3",
       "userId": "06c2",
-      "games": []
+      "games": [
+        {
+          "gameId": "582",
+          "createDate": "2024-01-01T00:00:00.000Z"
+        }
+      ]
     },
     {
       "id": "emif",
@@ -82,51 +81,19 @@
       ]
     },
     {
-      "id": "0cbf",
-      "userId": "06c2",
+      "id": "qepb",
+      "userId": "78e3",
       "games": [
-        {
-          "gameId": "516",
-          "createDate": "2024-12-15T01:54:33.552Z"
-        },
-        {
-          "gameId": "340",
-          "createDate": "2024-12-15T02:11:46.703Z"
-        },
         {
           "gameId": "582",
-          "createDate": "2024-12-15T09:01:24.857Z"
+          "createDate": "2024-01-01T00:00:00.000Z"
         }
       ]
     }
   ],
-  "usersListPlayed": [
-    {
-      "id": "qepb",
-      "userId": "06c2",
-      "games": [
-        {
-          "gameId": "345",
-          "createDate": "2024-12-15T01:54:46.890Z"
-        },
-        {
-          "gameId": "540",
-          "createDate": "2024-12-15T01:54:49.897Z"
-        },
-        {
-          "gameId": "523",
-          "createDate": "2024-12-15T02:11:47.986Z"
-        }
-      ]
-    }
-  ],
-  "usersListCompleted": [
-    {
-      "id": "5d88",
-      "userId": "06c2",
-      "games": []
-    }
-  ],
+  "usersListPlayed": [],
+  "usersListCompleted": [],
+
   "platform": [
     {
       "id": "4e6c",
@@ -181,7 +148,7 @@
   ],
   "gamesList": [
     {
-      "id": "582",
+      "id": 582,
       "title": "Tarisland",
       "thumbnail": "https://www.freetogame.com/g/582/thumbnail.jpg",
       "short_description": "A cross-platform MMORPG developed by Level Infinite and Published by Tencent.",
@@ -194,7 +161,7 @@
       "freetogame_profile_url": "https://www.freetogame.com/tarisland"
     },
     {
-      "id": "540",
+      "id": 540,
       "title": "Overwatch 2",
       "thumbnail": "https://www.freetogame.com/g/540/thumbnail.jpg",
       "short_description": "A hero-focused first-person team shooter from Blizzard Entertainment.",
@@ -207,7 +174,7 @@
       "freetogame_profile_url": "https://www.freetogame.com/overwatch-2"
     },
     {
-      "id": "516",
+      "id": 516,
       "title": "PUBG: BATTLEGROUNDS",
       "thumbnail": "https://www.freetogame.com/g/516/thumbnail.jpg",
       "short_description": "Get into the action in one of the longest running battle royale games PUBG Battlegrounds.",
@@ -220,7 +187,7 @@
       "freetogame_profile_url": "https://www.freetogame.com/pubg"
     },
     {
-      "id": "508",
+      "id": 508,
       "title": "Enlisted",
       "thumbnail": "https://www.freetogame.com/g/508/thumbnail.jpg",
       "short_description": "Get ready to command your own World War II military squad in Gaijin and Darkflow Software’s MMO squad-based shooter Enlisted. ",
@@ -233,7 +200,7 @@
       "freetogame_profile_url": "https://www.freetogame.com/enlisted"
     },
     {
-      "id": "345",
+      "id": 345,
       "title": "Forge of Empires",
       "thumbnail": "https://www.freetogame.com/g/345/thumbnail.jpg",
       "short_description": "A free to play 2D browser-based online strategy game, become the leader and raise your city.",
@@ -246,7 +213,7 @@
       "freetogame_profile_url": "https://www.freetogame.com/forge-of-empires"
     },
     {
-      "id": "475",
+      "id": 475,
       "title": "Genshin Impact",
       "thumbnail": "https://www.freetogame.com/g/475/thumbnail.jpg",
       "short_description": "If you’ve been looking for a game to scratch that open-world action RPG itch, one with perhaps a bit of Asian flair, then you’re going to want to check out miHoYo’s Genshin Impact.",
@@ -259,7 +226,7 @@
       "freetogame_profile_url": "https://www.freetogame.com/genshin-impact"
     },
     {
-      "id": "523",
+      "id": 523,
       "title": "Fall Guys",
       "thumbnail": "https://www.freetogame.com/g/523/thumbnail.jpg",
       "short_description": "Play the most competitive massively multiplayer party royale game featuring beans ever for free on a variety of platforms. ",
@@ -272,7 +239,7 @@
       "freetogame_profile_url": "https://www.freetogame.com/fall-guys"
     },
     {
-      "id": "340",
+      "id": 340,
       "title": "Game Of Thrones Winter Is Coming",
       "thumbnail": "https://www.freetogame.com/g/340/thumbnail.jpg",
       "short_description": "A free-to-play browser-based RTS based on the George R.R. Martin novels and popular HBO series.",
@@ -285,7 +252,7 @@
       "freetogame_profile_url": "https://www.freetogame.com/game-of-thrones-winter-is-coming"
     },
     {
-      "id": "347",
+      "id": 347,
       "title": "Elvenar",
       "thumbnail": "https://www.freetogame.com/g/347/thumbnail.jpg",
       "short_description": "A browser based city-building strategy MMO set in the fantasy world of Elvenar.",
@@ -298,7 +265,7 @@
       "freetogame_profile_url": "https://www.freetogame.com/elvenar"
     },
     {
-      "id": "11",
+      "id": 11,
       "title": "Neverwinter",
       "thumbnail": "https://www.freetogame.com/g/11/thumbnail.jpg",
       "short_description": "A free-to-play 3D action MMORPG based on the acclaimed Dungeons & Dragons fantasy roleplaying game. ",
@@ -311,7 +278,7 @@
       "freetogame_profile_url": "https://www.freetogame.com/neverwinter"
     },
     {
-      "id": "380",
+      "id": 380,
       "title": "Dark Orbit Reloaded",
       "thumbnail": "https://www.freetogame.com/g/380/thumbnail.jpg",
       "short_description": "A browser-based 3D space-combat MMO with a massive playerbase!",
@@ -324,7 +291,7 @@
       "freetogame_profile_url": "https://www.freetogame.com/darkorbit"
     },
     {
-      "id": "517",
+      "id": 517,
       "title": "Lost Ark",
       "thumbnail": "https://www.freetogame.com/g/517/thumbnail.jpg",
       "short_description": "Smilegate’s free-to-play multiplayer ARPG is a massive adventure filled with lands waiting to be explored, people waiting to be met, and an ancient evil waiting to be destroyed.",
@@ -337,7 +304,7 @@
       "freetogame_profile_url": "https://www.freetogame.com/lost-ark"
     },
     {
-      "id": "573",
+      "id": 573,
       "title": "Titan Revenge",
       "thumbnail": "https://www.freetogame.com/g/573/thumbnail.jpg",
       "short_description": "A 3D Norse-themed browser MMORPG developed and published by Game Hollywood Games",
@@ -350,7 +317,7 @@
       "freetogame_profile_url": "https://www.freetogame.com/titan-revenge"
     },
     {
-      "id": "521",
+      "id": 521,
       "title": "Diablo Immortal",
       "thumbnail": "https://www.freetogame.com/g/521/thumbnail.jpg",
       "short_description": "Built for mobile and also released on PC, Diablo Immortal fills in the gaps between Diablo II and III in an MMOARPG environment.",
@@ -363,7 +330,7 @@
       "freetogame_profile_url": "https://www.freetogame.com/diablo-immortal"
     },
     {
-      "id": "522",
+      "id": 522,
       "title": "Flyff Universe",
       "thumbnail": "https://www.freetogame.com/g/522/thumbnail.jpg",
       "short_description": "Get the full Flyff experience on any platform with the free-to-play browser-based MMORPG Flyff Universe.",
@@ -376,7 +343,7 @@
       "freetogame_profile_url": "https://www.freetogame.com/flyff-universe"
     },
     {
-      "id": "511",
+      "id": 511,
       "title": "Phantasy Star Online 2 New Genesis",
       "thumbnail": "https://www.freetogame.com/g/511/thumbnail.jpg",
       "short_description": "The legacy of Phantasy Star Online 2 continues a thousand years later!",
@@ -389,7 +356,7 @@
       "freetogame_profile_url": "https://www.freetogame.com/pso2-new-genesis"
     },
     {
-      "id": "455",
+      "id": 455,
       "title": "Eternal Fury",
       "thumbnail": "https://www.freetogame.com/g/455/thumbnail.jpg",
       "short_description": "A free-to-play ARPG from R2 Games!",
@@ -402,7 +369,7 @@
       "freetogame_profile_url": "https://www.freetogame.com/eternal-fury"
     },
     {
-      "id": "5",
+      "id": 5,
       "title": "Crossout",
       "thumbnail": "https://www.freetogame.com/g/5/thumbnail.jpg",
       "short_description": "A post-apocalyptic MMO vehicle combat game! ",
@@ -415,7 +382,7 @@
       "freetogame_profile_url": "https://www.freetogame.com/crossout"
     },
     {
-      "id": "9",
+      "id": 9,
       "title": "World of Warships",
       "thumbnail": "https://www.freetogame.com/g/9/thumbnail.jpg",
       "short_description": "A 3D free to play naval action-themed MMO from the creators of World of Tanks! ",
@@ -428,7 +395,7 @@
       "freetogame_profile_url": "https://www.freetogame.com/world-of-warships"
     },
     {
-      "id": "12",
+      "id": 12,
       "title": "War Thunder",
       "thumbnail": "https://www.freetogame.com/g/12/thumbnail.jpg",
       "short_description": "A MMO shooter that puts you in command of hundreds of the finest combat vehicles of World War II.",
@@ -443,7 +410,7 @@
   ],
   "gameDetails": [
     {
-      "id": "582",
+      "id": 582,
       "title": "Tarisland",
       "thumbnail": "https://www.freetogame.com/g/582/thumbnail.jpg",
       "status": "Live",
@@ -479,7 +446,7 @@
       ]
     },
     {
-      "id": "540",
+      "id": 540,
       "title": "Overwatch 2",
       "thumbnail": "https://www.freetogame.com/g/540/thumbnail.jpg",
       "status": "Live",
@@ -515,7 +482,7 @@
       ]
     },
     {
-      "id": "516",
+      "id": 516,
       "title": "PUBG: BATTLEGROUNDS",
       "thumbnail": "https://www.freetogame.com/g/516/thumbnail.jpg",
       "status": "Live",
@@ -551,7 +518,7 @@
       ]
     },
     {
-      "id": "508",
+      "id": 508,
       "title": "Enlisted",
       "thumbnail": "https://www.freetogame.com/g/508/thumbnail.jpg",
       "status": "Live",
@@ -587,7 +554,7 @@
       ]
     },
     {
-      "id": "345",
+      "id": 345,
       "title": "Forge of Empires",
       "thumbnail": "https://www.freetogame.com/g/345/thumbnail.jpg",
       "status": "Live",
@@ -616,7 +583,7 @@
       ]
     },
     {
-      "id": "475",
+      "id": 475,
       "title": "Genshin Impact",
       "thumbnail": "https://www.freetogame.com/g/475/thumbnail.jpg",
       "status": "Live",
@@ -652,7 +619,7 @@
       ]
     },
     {
-      "id": "523",
+      "id": 523,
       "title": "Fall Guys",
       "thumbnail": "https://www.freetogame.com/g/523/thumbnail.jpg",
       "status": "Live",
@@ -688,7 +655,7 @@
       ]
     },
     {
-      "id": "340",
+      "id": 340,
       "title": "Game Of Thrones Winter Is Coming",
       "thumbnail": "https://www.freetogame.com/g/340/thumbnail.jpg",
       "status": "Live",
@@ -717,7 +684,7 @@
       ]
     },
     {
-      "id": "347",
+      "id": 347,
       "title": "Elvenar",
       "thumbnail": "https://www.freetogame.com/g/347/thumbnail.jpg",
       "status": "Live",
@@ -746,7 +713,7 @@
       ]
     },
     {
-      "id": "11",
+      "id": 11,
       "title": "Neverwinter",
       "thumbnail": "https://www.freetogame.com/g/11/thumbnail.jpg",
       "status": "Live",
@@ -786,7 +753,7 @@
       ]
     },
     {
-      "id": "380",
+      "id": 380,
       "title": "Dark Orbit Reloaded",
       "thumbnail": "https://www.freetogame.com/g/380/thumbnail.jpg",
       "status": "Live",
@@ -819,7 +786,7 @@
       ]
     },
     {
-      "id": "517",
+      "id": 517,
       "title": "Lost Ark",
       "thumbnail": "https://www.freetogame.com/g/517/thumbnail.jpg",
       "status": "Live",
@@ -855,7 +822,7 @@
       ]
     },
     {
-      "id": "573",
+      "id": 573,
       "title": "Titan Revenge",
       "thumbnail": "https://www.freetogame.com/g/573/thumbnail.jpg",
       "status": "Live",
@@ -884,7 +851,7 @@
       ]
     },
     {
-      "id": "521",
+      "id": 521,
       "title": "Diablo Immortal",
       "thumbnail": "https://www.freetogame.com/g/521/thumbnail.jpg",
       "status": "Live",
@@ -920,7 +887,7 @@
       ]
     },
     {
-      "id": "522",
+      "id": 522,
       "title": "Flyff Universe",
       "thumbnail": "https://www.freetogame.com/g/522/thumbnail.jpg",
       "status": "Live",
@@ -949,7 +916,7 @@
       ]
     },
     {
-      "id": "511",
+      "id": 511,
       "title": "Phantasy Star Online 2 New Genesis",
       "thumbnail": "https://www.freetogame.com/g/511/thumbnail.jpg",
       "status": "Live",
@@ -989,7 +956,7 @@
       ]
     },
     {
-      "id": "455",
+      "id": 455,
       "title": "Eternal Fury",
       "thumbnail": "https://www.freetogame.com/g/455/thumbnail.jpg",
       "status": "Live",
@@ -1005,7 +972,7 @@
       "screenshots": []
     },
     {
-      "id": "5",
+      "id": 5,
       "title": "Crossout",
       "thumbnail": "https://www.freetogame.com/g/5/thumbnail.jpg",
       "status": "Live",
@@ -1045,7 +1012,7 @@
       ]
     },
     {
-      "id": "9",
+      "id": 9,
       "title": "World of Warships",
       "thumbnail": "https://www.freetogame.com/g/9/thumbnail.jpg",
       "status": "Live",
@@ -1085,7 +1052,7 @@
       ]
     },
     {
-      "id": "12",
+      "id": 12,
       "title": "War Thunder",
       "thumbnail": "https://www.freetogame.com/g/12/thumbnail.jpg",
       "status": "Live",

@@ -25,6 +25,7 @@ import { ToastService } from '../../services/toast.service';
 export class GameUserActionsComponent implements OnInit, OnDestroy {
     @Input({ required: true }) game!: Game;
     subscriptions: Subscription[] = [];
+    isRequesting: boolean = false;
 
     list: string = '';
 
@@ -63,15 +64,23 @@ export class GameUserActionsComponent implements OnInit, OnDestroy {
     }
 
     handleClick(list: 'played' | 'completed' | 'playing' | 'playLater') {
-        Logger.log('GameUserActionsComponent.addToList', list);
+        if (this.isRequesting) {
+            return;
+        }
 
+        Logger.log('GameUserActionsComponent.addToList', list);
+        this.isRequesting = true;
         this.subscriptions.push(
             (list === this.list
                 ? this.removeFromList(list)
                 : this.addToList(list)
             ).subscribe({
                 error: (error) => {
+                    this.isRequesting = false;
                     Logger.error('GameUserActionsComponent.addToList', error);
+                },
+                complete: () => {
+                    this.isRequesting = false;
                 },
             })
         );
