@@ -1,1 +1,11 @@
-<p>play-later-list works!</p>
+<app-game-bar />
+
+<div class="fixed-grid has-1-cols has-2-cols-desktop">
+    <div class="grid">
+        @for (game of (playLaterGames$ | async); track game.id) {
+        <app-game-card [game]="game" class="cell" />
+        } @empty {
+        <p class="is-flex is-justify-content-center mt-5">No games found</p>
+        }
+    </div>
+</div>

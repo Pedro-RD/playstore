@@ -170,4 +170,8 @@ export class AuthService {
             JSON.stringify(user)
         );
     }
+
+    getUserId(): string | undefined {
+        return this.loggedUser.value?.id;
+    }
 }
