@@ -3,21 +3,17 @@ import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
-    faCalendarPlus,
-    faCalendarMinus,
     faUser,
+    faCheck,
+    faX,
+    faClock,
+    faGamepad,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { AuthService } from '../../services/auth.service';
-import { FiltersService } from '../../services/filters.service';
-
 import { AsyncPipe, NgClass } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { GenresDropdownComponent } from '../genres-dropdown/genres-dropdown.component';
-import { PlatformDropdownComponent } from '../platform-dropdown/platform-dropdown.component';
-import { SortTitleButtonComponent } from '../sort-title-button/sort-title-button.component';
-import { SortDateButtonComponent } from '../sort-date-button/sort-date-button.component';
-import { SearchBoxComponent } from '../search-box/search-box.component';
+
 
 @Component({
     selector: 'app-navbar',
@@ -49,4 +45,8 @@ export class NavbarComponent {
 
     // Icons
     userIcon = faUser;
+    faCheck = faCheck;
+    faX = faX;
+    faClock = faClock;
+    faGamepad = faGamepad;
 }
