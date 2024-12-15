@@ -8,9 +8,9 @@
 
             <!-- Card Content and System Requirements Side by Side -->
             <div class="card-content">
-                <div class="columns">
+                <div class="columns is-multiline">
                     <!-- Card Content -->
-                    <div class="column is-half">
+                    <div class="column is-half-mobile is-half-tablet is-half-desktop">
                         <div class="content">
                             <p><strong>Status:</strong> {{ game.status }}</p>
                             <p><strong>Short Description:</strong> {{ game.short_description }}</p>
@@ -23,7 +23,7 @@
                     </div>
 
                     <!-- Minimum System Requirements -->
-                    <div class="column is-half">
+                    <div class="column is-half-mobile is-half-tablet is-half-desktop">
                         <div class="block">
                             <p class="subtitle">Minimum System Requirements:</p>
                             @if (game.minimum_system_requirements) {
@@ -52,6 +52,7 @@
             <div class="card-content">
                 <p><strong>Game URL:</strong> <a [href]="game.game_url" target="_blank">{{ game.game_url}}</a></p>
             </div>
+
             <!-- Horizontal Carousel for Screenshots -->
             <div class="card-image">
                 <div class="carousel" data-autoplay="true" data-delay="3000">
@@ -77,3 +78,4 @@
         </div>
     }
 </div>
+
