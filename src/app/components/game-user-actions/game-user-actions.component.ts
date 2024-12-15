@@ -11,7 +11,7 @@ import { UserGamesService } from '../../services/user-games.service';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Logger } from '../../helpers/logger.helper';
-import { Subscription } from 'rxjs';
+import { mergeMap, Observable, of, Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-game-user-actions',
@@ -33,8 +33,18 @@ export class GameUserActionsComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.subscriptions.push(
-            this.userGamesService
-                .isGameListed(`${this.game.id}`)
+            this.authService
+                .isLogged()
+                .pipe(
+                    mergeMap((logged): Observable<string> => {
+                        if (logged) {
+                            return this.userGamesService.isGameListed(
+                                `${this.game.id}`
+                            );
+                        }
+                        return of('');
+                    })
+                )
                 .subscribe((list) => {
                     this.list = list;
                 })

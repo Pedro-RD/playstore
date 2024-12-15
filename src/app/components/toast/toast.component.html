@@ -1,4 +1,5 @@
-<div *ngFor="let item of notifications; trackBy: trackByTimestamp" [ngClass]="['message', getBulmaClass(item.type), item.status || '']">
+<div *ngFor="let item of notifications; trackBy: trackByTimestamp"
+    [ngClass]="['message', getBulmaClass(item.type), item.status || '']">
     <div class="message-header">
         <p>{{ item.title }}</p>
         <button class="delete" aria-label="delete" (click)="closeNotification(item)"></button>
