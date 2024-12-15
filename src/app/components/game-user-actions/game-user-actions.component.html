@@ -1,37 +1,36 @@
 @if(isLogged |async) {
-    <div class="field has-addons is-flex is-flex-wrap-wrap is-justify-content-space-between">
-        <div class="control" style="flex: 0 0 calc(50% - 0.5rem); margin-bottom: 0.5rem;">
-            <button class="button">
+<div class="field has-addons is-flex is-flex-wrap-wrap is-justify-content-space-between">
+    <div class="control" style="flex: 0 0 calc(50% - 0.5rem); margin-bottom: 0.5rem;">
+        <button class="button" (click)="addToList('playLater')">
             <span class="icon is-small">
                 <fa-icon [icon]="faClock" />
             </span>
-                <span>Play Later</span>
-            </button>
-        </div>
-        <div class="control" style="flex: 0 0 calc(50% - 0.5rem); margin-bottom: 0.5rem;">
-            <button class="button">
+            <span>Play Later</span>
+        </button>
+    </div>
+    <div class="control" style="flex: 0 0 calc(50% - 0.5rem); margin-bottom: 0.5rem;">
+        <button class="button" (click)="addToList('playing')">
             <span class="icon is-small">
                 <fa-icon [icon]="faGamepad" />
             </span>
-                <span>Playing</span>
-            </button>
-        </div>
-        <div class="control" style="flex: 0 0 calc(50% - 0.5rem); margin-bottom: 0.5rem;">
-            <button class="button">
+            <span>Playing</span>
+        </button>
+    </div>
+    <div class="control" style="flex: 0 0 calc(50% - 0.5rem); margin-bottom: 0.5rem;">
+        <button class="button" (click)="addToList('completed')">
             <span class="icon is-small">
                 <fa-icon [icon]="faCheck" />
             </span>
-                <span>Completed</span>
-            </button>
-        </div>
-        <div class="control" style="flex: 0 0 calc(50% - 0.5rem); margin-bottom: 0.5rem;">
-            <button class="button">
+            <span>Completed</span>
+        </button>
+    </div>
+    <div class="control" style="flex: 0 0 calc(50% - 0.5rem); margin-bottom: 0.5rem;">
+        <button class="button" (click)="addToList('played')">
             <span class="icon is-small">
                 <fa-icon [icon]="faX" />
             </span>
-                <span>Played</span>
-            </button>
-        </div>
+            <span>Played</span>
+        </button>
     </div>
+</div>
 }
-

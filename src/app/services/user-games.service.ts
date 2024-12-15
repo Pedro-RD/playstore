@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
-import { ToastService } from './toast.service';
 import { GamesService } from './games.service';
 import { FiltersService } from './filters.service';
 import { environment } from '../../environments/environment';
@@ -9,7 +8,6 @@ import {
     BehaviorSubject,
     combineLatest,
     map,
-    merge,
     mergeMap,
     Observable,
     of,
@@ -33,7 +31,6 @@ export class UserGamesService {
         private readonly authService: AuthService,
         private readonly gamesService: GamesService,
         private readonly filtersService: FiltersService,
-        private readonly toastService: ToastService,
         private readonly errorService: ErrorBoxService
     ) {}
 
@@ -80,7 +77,6 @@ export class UserGamesService {
     }
 
     // Play Later Games
-
     private readonly playLaterGamesSubject = new BehaviorSubject<Game[]>([]);
     playLaterGames$ = this.playLaterGamesSubject.asObservable();
 
@@ -119,20 +115,158 @@ export class UserGamesService {
         );
     }
 
-    // helper functions
-    private createUrl(list: string): string {
-        return `${environment.apiUrl}${list}?userId=`;
+    // Add Game to List
+    addToList(gameId: string, list: string) {
+        return this.removeFromAllLists(gameId).pipe(
+            tap(() => {
+                Logger.warn('Game removed from all lists', gameId);
+            }),
+            mergeMap(() => {
+                return this.httpClient
+                    .get<UserGame[]>(
+                        this.getUrlByListName(list) + this.getUserId()
+                    )
+                    .pipe(
+                        tap((userGame) => {
+                            Logger.warn(
+                                'Fetched userGame from list',
+                                userGame,
+                                gameId,
+                                list
+                            );
+                        }),
+                        mergeMap((userGame) => {
+                            const userId = this.getUserId();
+                            if (!userId) return of(null);
+
+                            if (!userGame || !userGame.length) {
+                                return this.createUserGame(
+                                    {
+                                        userId,
+                                        games: [
+                                            {
+                                                gameId,
+                                                createDate:
+                                                    new Date().toISOString(),
+                                            },
+                                        ],
+                                    },
+                                    list
+                                );
+                            }
+                            return this.updateUserGame(
+                                userGame[0].id!,
+                                {
+                                    userId,
+                                    games: [
+                                        ...userGame[0].games,
+                                        {
+                                            gameId,
+                                            createDate:
+                                                new Date().toISOString(),
+                                        },
+                                    ],
+                                },
+                                list
+                            );
+                        })
+                    );
+            })
+        );
     }
 
-    getUserId(): string | undefined {
-        const userID = this.authService.getUserId();
-        if (!userID) {
-            this.errorService.setError(
-                'User ID not found',
-                'Please log in to view your games.'
+    createUserGame(userGame: UserGame, list: string): Observable<UserGame> {
+        Logger.warn('Creating UserGame', userGame, list);
+        return this.httpClient.post<UserGame>(
+            this.getUrlByListName(list).split('?')[0],
+            userGame
+        );
+    }
+
+    updateUserGame(
+        id: string,
+        userGame: UserGame,
+        list: string
+    ): Observable<UserGame> {
+        Logger.warn('Updating UserGame', id, userGame, list);
+        return this.httpClient.patch<UserGame>(
+            this.getUrlByListName(list).split('?')[0] + '/' + id,
+            userGame
+        );
+    }
+
+    // Remove Game from All Lists by Updating UserGame
+    removeFromAllLists(gameId: string) {
+        return combineLatest([
+            this.removeFromList(gameId, 'played'),
+            this.removeFromList(gameId, 'completed'),
+            this.removeFromList(gameId, 'playLater'),
+            this.removeFromList(gameId, 'playing'),
+        ]);
+    }
+
+    removeFromList(gameId: string, list: string) {
+        return this.httpClient
+            .get<UserGame[]>(this.getUrlByListName(list) + this.getUserId())
+            .pipe(
+                mergeMap((userGame) => {
+                    if (!userGame || !userGame.length) return of(null);
+
+                    const newGames = userGame[0].games.filter(
+                        (game) => game.gameId !== gameId
+                    );
+
+                    if (newGames.length === userGame[0].games.length) {
+                        return of(null);
+                    }
+
+                    userGame[0].games = newGames;
+                    return this.httpClient.patch<UserGame>(
+                        this.getUrlByListName(list).split('?')[0] +
+                            '/' +
+                            userGame[0].id,
+                        userGame[0]
+                    );
+                }),
+                tap(() => {
+                    Logger.warn('Game removed from list', gameId, list);
+                })
             );
-        }
-        return userID;
+    }
+
+    isGameListed(gameId: string): Observable<string> {
+        return combineLatest([
+            this.isGameInList(gameId, 'played'),
+            this.isGameInList(gameId, 'completed'),
+            this.isGameInList(gameId, 'playLater'),
+            this.isGameInList(gameId, 'playing'),
+        ]).pipe(
+            map(([played, completed, playLater, playing]) => {
+                if (played) return 'played';
+                if (completed) return 'completed';
+                if (playLater) return 'playLater';
+                if (playing) return 'playing';
+                return '';
+            })
+        );
+    }
+
+    isGameInList(gameId: string, list: string): Observable<boolean> {
+        Logger.warn(
+            'Checking if game is in list and returning boolean',
+            gameId,
+            list
+        );
+        return this.httpClient
+            .get<UserGame[]>(this.getUrlByListName(list) + this.getUserId())
+            .pipe(
+                map((userGame) => {
+                    if (!userGame || !userGame.length) return false;
+                    return userGame[0].games.some(
+                        (game) => game.gameId === gameId
+                    );
+                })
+            );
     }
 
     // Auxiliary functions
@@ -185,5 +319,35 @@ export class UserGamesService {
                 );
             })
         );
+    }
+
+    getUserId(): string | undefined {
+        const userID = this.authService.getUserId();
+        if (!userID) {
+            this.errorService.setError(
+                'User ID not found',
+                'Please log in to view your games.'
+            );
+        }
+        return userID;
+    }
+
+    private createUrl(list: string): string {
+        return `${environment.apiUrl}${list}?userId=`;
+    }
+
+    getUrlByListName(list: string): string {
+        switch (list) {
+            case 'played':
+                return this.API_PLAYED;
+            case 'completed':
+                return this.API_COMPLETED;
+            case 'playLater':
+                return this.API_PLAY_LATER;
+            case 'playing':
+                return this.API_PLAYING;
+            default:
+                return '';
+        }
     }
 }
