@@ -47,7 +47,9 @@ export class FiltersService {
         this.filterPlatform$,
         this.filterGenre$,
         this.sort$,
-    ]).pipe(
+    ]);
+
+    url = this.filters.pipe(
         map(([title, platform, genre, sort]) => {
             let url = `?`;
 

@@ -34,7 +34,7 @@ export class GamesService {
     }
 
     private createUrl(): Observable<string> {
-        return this.filtersService.filters.pipe(
+        return this.filtersService.url.pipe(
             map((query) => this.API_LIST + query)
         );
     }

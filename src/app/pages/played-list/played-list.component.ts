@@ -27,6 +27,6 @@ export class PlayedListComponent implements OnInit, OnDestroy {
     }
 
     get playedGames$() {
-        return this.userGamesService.playedGames$;
+        return this.userGamesService.filteredPlayedGames$;
     }
 }
