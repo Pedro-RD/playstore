@@ -2,37 +2,50 @@
 @if(isLogged |async) {
 <div class="is-flex is-flex-wrap-wrap is-justify-content-space-between">
     <div class="button-container">
-        <button class="button" (click)="addToList('playLater')" [ngClass]="{'is-primary': list === 'playLater'}"
-            [disabled]="list === 'playLater'">
+        <button class="button" (click)="handleClick('playLater')" [ngClass]="{'is-primary': list === 'playLater'}">
             <span class="icon is-small">
+                @if (list === 'playLater')
+                {
+                <fa-icon [icon]="faTrash" />
+                } @else {
                 <fa-icon [icon]="faClock" />
+                }
             </span>
             <span>Play Later</span>
         </button>
     </div>
     <div class="button-container">
-        <button class="button" (click)="addToList('playing')" [ngClass]="{'is-primary': list === 'playing'}"
-            [disabled]="list === 'playing'">
+        <button class="button" (click)="handleClick('playing')" [ngClass]="{'is-primary': list === 'playing'}">
             <span class="icon is-small">
+                @if (list === 'playing') {
+                <fa-icon [icon]="faTrash" />
+                } @else {
                 <fa-icon [icon]="faGamepad" />
+                }
             </span>
             <span>Playing</span>
         </button>
     </div>
     <div class="button-container">
-        <button class="button" (click)="addToList('completed')" [ngClass]="{'is-primary': list === 'completed'}"
-            [disabled]="list === 'completed'">
+        <button class="button" (click)="handleClick('completed')" [ngClass]="{'is-primary': list === 'completed'}">
             <span class="icon is-small">
+                @if (list === 'completed') {
+                <fa-icon [icon]="faTrash" />
+                } @else {
                 <fa-icon [icon]="faCheck" />
+                }
             </span>
             <span>Completed</span>
         </button>
     </div>
     <div class="button-container">
-        <button class="button" (click)="addToList('played')" [ngClass]="{'is-primary': list === 'played'}"
-            [disabled]="list === 'played'">
+        <button class="button" (click)="handleClick('played')" [ngClass]="{'is-primary': list === 'played'}">
             <span class="icon is-small">
+                @if (list === 'played') {
+                <fa-icon [icon]="faTrash" />
+                } @else {
                 <fa-icon [icon]="faX" />
+                }
             </span>
             <span>Played</span>
         </button>

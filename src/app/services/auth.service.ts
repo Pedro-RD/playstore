@@ -14,6 +14,7 @@ import { HttpClient } from '@angular/common/http';
 import { LocalStorageService } from './local-storage.service';
 import { ErrorBoxService } from './error-box.service';
 import { ToastService } from './toast.service';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root',
@@ -29,7 +30,8 @@ export class AuthService {
         private readonly http: HttpClient,
         private readonly localStorageService: LocalStorageService,
         private readonly errorService: ErrorBoxService,
-        private readonly toastService: ToastService
+        private readonly toastService: ToastService,
+        private readonly router: Router
     ) {}
 
     registerUser(userDetails: User) {
@@ -155,6 +157,7 @@ export class AuthService {
             body: 'You have successfully logged out',
             type: 'info',
         });
+        this.router.navigate(['/login']);
     }
 
     loadUser(): void {

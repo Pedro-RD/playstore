@@ -1,81 +1,69 @@
 <div class="container">
     @if (game) {
-        <div class="card">
-            <!-- Title at the Top -->
-            <header class="card-header" style="text-align: center;">
-                <p class="card-header-title" style="font-size: 2rem;">{{ game.title }}</p>
-            </header>
+    <div class="card">
+        <!-- Title at the Top -->
+        <header class="card-header">
+            <p class="card-header-title">{{ game.title }}</p>
+        </header>
+        <div class="px-5">
+            <app-game-user-actions [game]="game" />
+        </div>
 
-            <!-- Card Content and System Requirements Side by Side -->
-            <div class="card-content">
-                <div class="columns is-multiline">
-                    <!-- Card Content -->
-                    <div class="column is-half-mobile is-half-tablet is-half-desktop">
-                        <div class="content">
-                            <p><strong>Status:</strong> {{ game.status }}</p>
-                            <p><strong>Short Description:</strong> {{ game.short_description }}</p>
-                            <p><strong>Release Date:</strong> {{ game.release_date }}</p>
-                            <p><strong>Genre:</strong> {{ game.genre }}</p>
-                            <p><strong>Platform:</strong> {{ game.platform }}</p>
-                            <p><strong>Publisher:</strong> {{ game.publisher }}</p>
-                            <p><strong>Developer:</strong> {{ game.developer }}</p>
-                        </div>
-                    </div>
-
-                    <!-- Minimum System Requirements -->
-                    <div class="column is-half-mobile is-half-tablet is-half-desktop">
-                        <div class="block">
-                            <p class="subtitle">Minimum System Requirements:</p>
-                            @if (game.minimum_system_requirements) {
-                                <ul>
-                                    <li><strong>OS:</strong> {{ game.minimum_system_requirements.os }}</li>
-                                    <li><strong>Processor:</strong> {{ game.minimum_system_requirements.processor }}</li>
-                                    <li><strong>Memory:</strong> {{ game.minimum_system_requirements.memory }}</li>
-                                    <li><strong>Graphics:</strong> {{ game.minimum_system_requirements.graphics }}</li>
-                                    <li><strong>Storage:</strong> {{ game.minimum_system_requirements.storage }}</li>
-                                </ul>
-                            }
-                        </div>
+        <!-- Card Content and System Requirements Side by Side -->
+        <div class="card-content">
+            <div class="columns is-multiline">
+                <!-- Card Content -->
+                <div class="column is-half-mobile is-half-tablet is-half-desktop">
+                    <div class="content">
+                        <p><strong>Status:</strong> {{ game.status }}</p>
+                        <p><strong>Short Description:</strong> {{ game.short_description }}</p>
+                        <p><strong>Release Date:</strong> {{ game.release_date }}</p>
+                        <p><strong>Genre:</strong> {{ game.genre }}</p>
+                        <p><strong>Platform:</strong> {{ game.platform }}</p>
+                        <p><strong>Publisher:</strong> {{ game.publisher }}</p>
+                        <p><strong>Developer:</strong> {{ game.developer }}</p>
                     </div>
                 </div>
-            </div>
 
-            <!-- Description Below -->
-            <div class="card-content">
-                <div class="block">
-                    <p class="subtitle">Description:</p>
-                    <p>{{ game.description }}</p>
-                </div>
-            </div>
-
-            <!-- Game URL -->
-            <div class="card-content">
-                <p><strong>Game URL:</strong> <a [href]="game.game_url" target="_blank">{{ game.game_url}}</a></p>
-            </div>
-
-            <!-- Horizontal Carousel for Screenshots -->
-            <div class="card-image">
-                <div class="carousel" data-autoplay="true" data-delay="3000">
-                    <div class="carousel-container">
-                        @for (screenshot of game.screenshots; track screenshot.id) {
-                            <div class="carousel-item">
-                                <figure class="image is-16by9">
-                                    <img [src]="screenshot.image" [alt]="'Screenshot ' + screenshot.id" style="width: 100%; height: auto;">
-                                </figure>
-                            </div>
+                <!-- Minimum System Requirements -->
+                <div class="column is-half-mobile is-half-tablet is-half-desktop">
+                    <div class="block">
+                        <p class="subtitle">Minimum System Requirements:</p>
+                        @if (game.minimum_system_requirements) {
+                        <ul>
+                            <li><strong>OS:</strong> {{ game.minimum_system_requirements.os }}</li>
+                            <li><strong>Processor:</strong> {{ game.minimum_system_requirements.processor }}</li>
+                            <li><strong>Memory:</strong> {{ game.minimum_system_requirements.memory }}</li>
+                            <li><strong>Graphics:</strong> {{ game.minimum_system_requirements.graphics }}</li>
+                            <li><strong>Storage:</strong> {{ game.minimum_system_requirements.storage }}</li>
+                        </ul>
                         }
-                    </div>
-                    <div class="carousel-navigation">
-                        <button class="carousel-nav-left">
-                            <span class="icon"><i class="fas fa-chevron-left"></i></span>
-                        </button>
-                        <button class="carousel-nav-right">
-                            <span class="icon"><i class="fas fa-chevron-right"></i></span>
-                        </button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Description Below -->
+        <div class="card-content">
+            <div class="block">
+                <p class="subtitle">Description:</p>
+                <p>{{ game.description }}</p>
+            </div>
+        </div>
+
+        <!-- Game URL -->
+        <div class="card-content">
+            <p><strong>Game URL:</strong> <a [href]="game.game_url" target="_blank">{{ game.game_url}}</a></p>
+        </div>
+
+
+        @for (screenshot of game.screenshots; track screenshot.id) {
+        <div class="image-item">
+            <figure class="image is-16by9">
+                <img [src]="screenshot.image" [alt]="'Screenshot '+ game.title + screenshot.id" />
+            </figure>
+        </div>
+        }
+    </div>
     }
 </div>
-
