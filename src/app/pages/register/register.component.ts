@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { Logger } from '../../helpers/logger.helper';
-import { ToastService } from '../../services/toast.service';
 
 @Component({
     selector: 'app-register',
@@ -20,19 +19,13 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     constructor(
         private readonly authService: AuthService,
-        private readonly router: Router,
-        private readonly toastService: ToastService
+        private readonly router: Router
     ) {}
 
     ngOnInit(): void {
         this.subscriptions.push(
             this.authService.isLogged().subscribe((isLogged) => {
                 if (isLogged) {
-                    this.toastService.newNotification({
-                        title: 'Already logged in',
-                        body: 'You are already logged in',
-                        type: 'info',
-                    });
                     this.router.navigate(['']);
                 }
             })
